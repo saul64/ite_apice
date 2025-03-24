@@ -22,10 +22,10 @@ class LoginPage extends StatelessWidget {
               body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.symmetric(
-                        vertical: altoPantalla * 0.0182926829268293,
-                      ),
+                    Container(
+                      width: double.infinity,
+                      height: altoPantalla * 0.0792682926829268,
+                      color: Color.fromARGB(255, 31, 75, 165),
                     ),
 
                     Container(
@@ -36,10 +36,6 @@ class LoginPage extends StatelessWidget {
                       height: altoPantalla * 0.8719512195121951,
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 255, 255, 255),
-                        border: Border(
-                          top: BorderSide(color: Colors.black),
-                          bottom: BorderSide(color: Colors.black),
-                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +70,7 @@ class LoginPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: altoPantalla * 0.048780487804878),
+                          SizedBox(height: 15),
                           MyCustomInput(
                             iconRoute: "assets/icons/user.png",
                             inputLabel: "Correo institucional",

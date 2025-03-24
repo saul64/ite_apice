@@ -19,9 +19,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double anchoPantalla = MediaQuery.of(context).size.width;
-    double altoPantalla = MediaQuery.of(context).size.height;
-
     return Consumer<LoginNavProvider>(
       builder:
           (context, value, child) => MaterialApp(
@@ -33,7 +30,7 @@ class MainApp extends StatelessWidget {
 }
 
 class _IndiceSeleccionado extends StatelessWidget {
-  LoginNavProvider instancia;
+  final LoginNavProvider instancia;
   _IndiceSeleccionado({required this.instancia, super.key});
 
   @override
