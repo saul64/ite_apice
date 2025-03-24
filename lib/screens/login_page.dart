@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
+import 'package:ite_apice/providers/login_nav_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -13,131 +15,151 @@ class LoginPage extends StatelessWidget {
     double altoPantalla = MediaQuery.of(context).size.height;
 
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.symmetric(
-                  vertical: altoPantalla * 0.0182926829268293,
-                ),
-              ),
-
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: anchoPantalla * 0.121654501216545,
-                ),
-                width: double.infinity,
-                height: altoPantalla * 0.8719512195121951,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  border: Border(
-                    top: BorderSide(color: Colors.black),
-                    bottom: BorderSide(color: Colors.black),
-                  ),
-                ),
+      child: Consumer<LoginNavProvider>(
+        builder:
+            (context, value, child) => Scaffold(
+              backgroundColor: Color.fromARGB(255, 255, 255, 255),
+              body: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: double.infinity,
-                      height: altoPantalla * 0.2926829268292683,
-
-                      child: Image.asset(
-                        "assets/images/logo.jpg",
-                        fit: BoxFit.fill,
+                    Padding(
+                      padding: EdgeInsetsDirectional.symmetric(
+                        vertical: altoPantalla * 0.0182926829268293,
                       ),
                     ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                            left: anchoPantalla * 0.072992700729927,
-                          ),
-                        ),
-                        Text(
-                          "¡Bienvenid@!",
-                          style: TextStyle(
-                            fontSize: anchoPantalla * 0.0583941605839416,
-                            color: const Color.fromARGB(255, 108, 105, 105),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: altoPantalla * 0.048780487804878),
-                    MyCustomInput(
-                      iconRoute: "assets/icons/user.png",
-                      inputLabel: "Correo institucional",
-                      inputPlaceholder: "ejemplo@ite.edu.mx",
-                    ),
-                    SizedBox(height: altoPantalla * 0.0426829268292683),
-                    MyCustomInput(
-                      iconRoute: "assets/icons/lock.png",
-                      inputLabel: "Contraseña",
-                      inputPlaceholder: "********",
-                    ),
-                    SizedBox(height: 30),
-                    Expanded(
-                      child: Container(
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
 
-                          child: Column(
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: anchoPantalla * 0.121654501216545,
+                      ),
+                      width: double.infinity,
+                      height: altoPantalla * 0.8719512195121951,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        border: Border(
+                          top: BorderSide(color: Colors.black),
+                          bottom: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: altoPantalla * 0.2926829268292683,
+
+                            child: Image.asset(
+                              "assets/images/logo.jpg",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          Row(
                             children: [
-                              Container(
-                                width: anchoPantalla * 0.5596107055961071,
-                                height: altoPantalla * 0.0548780487804878,
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 31, 75, 165),
-
-                                  borderRadius: BorderRadius.circular(15),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: anchoPantalla * 0.072992700729927,
                                 ),
-                                child: Center(
-                                  child: Text(
-                                    "Iniciar sesión",
-
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize:
-                                          anchoPantalla * 0.0437956204379562,
-                                      color: Colors.white,
-                                    ),
+                              ),
+                              Text(
+                                "¡Bienvenid@!",
+                                style: TextStyle(
+                                  fontSize: anchoPantalla * 0.0583941605839416,
+                                  color: const Color.fromARGB(
+                                    255,
+                                    108,
+                                    105,
+                                    105,
                                   ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: altoPantalla * 0.0365853658536585,
-                              ),
-                              Text(
-                                "¿Aún no tienes una cuenta?",
-
-                                style: TextStyle(
-                                  fontSize: anchoPantalla * 0.0389294403892944,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              Text(
-                                "Regístrate",
-
-                                style: TextStyle(
-                                  fontSize: anchoPantalla * 0.0389294403892944,
-                                  color: Color.fromARGB(255, 31, 75, 165),
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ],
                           ),
-                        ),
+                          SizedBox(height: altoPantalla * 0.048780487804878),
+                          MyCustomInput(
+                            iconRoute: "assets/icons/user.png",
+                            inputLabel: "Correo institucional",
+                            inputPlaceholder: "ejemplo@ite.edu.mx",
+                          ),
+                          SizedBox(height: altoPantalla * 0.0426829268292683),
+                          MyCustomInput(
+                            iconRoute: "assets/icons/lock.png",
+                            inputLabel: "Contraseña",
+                            inputPlaceholder: "********",
+                          ),
+                          SizedBox(height: altoPantalla * 0.0365853658536585),
+                          Expanded(
+                            child: Container(
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: anchoPantalla * 0.5596107055961071,
+                                      height: altoPantalla * 0.0548780487804878,
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(255, 31, 75, 165),
+
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Iniciar sesión",
+
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize:
+                                                anchoPantalla *
+                                                0.0437956204379562,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: altoPantalla * 0.0365853658536585,
+                                    ),
+                                    Text(
+                                      "¿Aún no tienes una cuenta?",
+
+                                      style: TextStyle(
+                                        fontSize:
+                                            anchoPantalla * 0.0389294403892944,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => value.updateIndex(1),
+                                      child: Text(
+                                        "Regístrate",
+
+                                        style: TextStyle(
+                                          fontSize:
+                                              anchoPantalla *
+                                              0.0389294403892944,
+                                          color: Color.fromARGB(
+                                            255,
+                                            31,
+                                            75,
+                                            165,
+                                          ),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
       ),
     );
   }
