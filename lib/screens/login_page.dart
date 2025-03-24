@@ -85,68 +85,59 @@ class LoginPage extends StatelessWidget {
                           SizedBox(height: altoPantalla * 0.0365853658536585),
                           Expanded(
                             child: Container(
-                              child: Container(
-                                width: double.infinity,
-                                height: double.infinity,
-                                color: Colors.orangeAccent,
+                              width: double.infinity,
+                              height: double.infinity,
 
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      width: anchoPantalla * 0.5596107055961071,
-                                      height: altoPantalla * 0.0548780487804878,
-                                      decoration: BoxDecoration(
-                                        color: Color.fromARGB(255, 31, 75, 165),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: anchoPantalla * 0.5596107055961071,
+                                    height: altoPantalla * 0.0548780487804878,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 31, 75, 165),
 
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "Iniciar sesión",
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "Iniciar sesión",
 
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize:
-                                                anchoPantalla *
-                                                0.0437956204379562,
-                                            color: Colors.white,
-                                          ),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize:
+                                              anchoPantalla *
+                                              0.0437956204379562,
+                                          color: Colors.white,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: altoPantalla * 0.0365853658536585,
+                                  ),
+                                  SizedBox(
+                                    height: altoPantalla * 0.0365853658536585,
+                                  ),
+                                  Text(
+                                    "¿Aún no tienes una cuenta?",
+
+                                    style: TextStyle(
+                                      fontSize:
+                                          anchoPantalla * 0.0389294403892944,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                    Text(
-                                      "¿Aún no tienes una cuenta?",
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => value.updateIndex(1),
+                                    child: Text(
+                                      "Regístrate",
 
                                       style: TextStyle(
                                         fontSize:
                                             anchoPantalla * 0.0389294403892944,
-                                        fontWeight: FontWeight.w400,
+                                        color: Color.fromARGB(255, 31, 75, 165),
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    GestureDetector(
-                                      onTap: () => value.updateIndex(1),
-                                      child: Text(
-                                        "Regístrate",
-
-                                        style: TextStyle(
-                                          fontSize:
-                                              anchoPantalla *
-                                              0.0389294403892944,
-                                          color: Color.fromARGB(
-                                            255,
-                                            31,
-                                            75,
-                                            165,
-                                          ),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
