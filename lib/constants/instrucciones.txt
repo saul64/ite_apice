@@ -1,0 +1,1 @@
+ valores constantes, como colores, tipo de letra, etc
