@@ -5,18 +5,30 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //411.42857142857144
+    double anchoPantalla = MediaQuery.of(context).size.width;
+
+    //820.5714285714286
+    double altoPantalla = MediaQuery.of(context).size.height;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(padding: EdgeInsetsDirectional.symmetric(vertical: 15)),
+              Padding(
+                padding: EdgeInsetsDirectional.symmetric(
+                  vertical: altoPantalla * 0.0182926829268293,
+                ),
+              ),
 
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 50),
+                padding: EdgeInsets.symmetric(
+                  horizontal: anchoPantalla * 0.121654501216545,
+                ),
                 width: double.infinity,
-                height: 715,
+                height: altoPantalla * 0.8719512195121951,
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   border: Border(
@@ -29,7 +41,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 240,
+                      height: altoPantalla * 0.2926829268292683,
 
                       child: Image.asset(
                         "assets/images/logo.jpg",
@@ -38,28 +50,32 @@ class LoginPage extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Padding(padding: EdgeInsets.only(left: 30)),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: anchoPantalla * 0.072992700729927,
+                          ),
+                        ),
                         Text(
-                          "!Bienvenid@!",
+                          "¡Bienvenid@!",
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: anchoPantalla * 0.0583941605839416,
                             color: const Color.fromARGB(255, 108, 105, 105),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: altoPantalla * 0.048780487804878),
                     Container(
                       width: double.infinity,
-                      height: 80,
+                      height: altoPantalla * 0.0975609756097561,
                       child: Row(
                         children: [
                           Container(
-                            width: 50,
-                            height: 50,
+                            width: anchoPantalla * 0.121654501216545,
+                            height: altoPantalla * 0.0609756097560976,
                             child: Image.asset("assets/icons/user.png"),
                           ),
-                          SizedBox(width: 25),
+                          SizedBox(width: anchoPantalla * 0.0608272506082725),
                           Expanded(
                             child: Container(
                               child: Column(
@@ -72,7 +88,8 @@ class LoginPage extends StatelessWidget {
 
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 20,
+                                      fontSize:
+                                          anchoPantalla * 0.048661800486618,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -81,7 +98,8 @@ class LoginPage extends StatelessWidget {
                                       keyboardType: TextInputType.emailAddress,
                                       decoration: InputDecoration(
                                         hintStyle: TextStyle(
-                                          fontSize: 20,
+                                          fontSize:
+                                              anchoPantalla * 0.048661800486618,
                                           color: const Color.fromARGB(
                                             255,
                                             131,
@@ -116,18 +134,18 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 35),
+                    SizedBox(height: altoPantalla * 0.0426829268292683),
                     Container(
                       width: double.infinity,
-                      height: 80,
+                      height: altoPantalla * 0.0975609756097561,
                       child: Row(
                         children: [
                           Container(
-                            width: 50,
-                            height: 50,
+                            width: anchoPantalla * 0.121654501216545,
+                            height: altoPantalla * 0.0609756097560976,
                             child: Image.asset("assets/icons/lock.png"),
                           ),
-                          SizedBox(width: 25),
+                          SizedBox(width: anchoPantalla * 0.0608272506082725),
                           Expanded(
                             child: Container(
                               child: Column(
@@ -140,7 +158,8 @@ class LoginPage extends StatelessWidget {
 
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 20,
+                                      fontSize:
+                                          anchoPantalla * 0.048661800486618,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -149,7 +168,8 @@ class LoginPage extends StatelessWidget {
                                       keyboardType: TextInputType.emailAddress,
                                       decoration: InputDecoration(
                                         hintStyle: TextStyle(
-                                          fontSize: 20,
+                                          fontSize:
+                                              anchoPantalla * 0.048661800486618,
                                           color: const Color.fromARGB(
                                             255,
                                             131,
@@ -193,8 +213,8 @@ class LoginPage extends StatelessWidget {
                           child: Column(
                             children: [
                               Container(
-                                width: 230,
-                                height: 45,
+                                width: anchoPantalla * 0.5596107055961071,
+                                height: altoPantalla * 0.0548780487804878,
                                 decoration: BoxDecoration(
                                   color: Color.fromARGB(255, 31, 75, 165),
 
@@ -206,18 +226,21 @@ class LoginPage extends StatelessWidget {
 
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                      fontSize:
+                                          anchoPantalla * 0.0437956204379562,
                                       color: Colors.white,
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 30),
+                              SizedBox(
+                                height: altoPantalla * 0.0365853658536585,
+                              ),
                               Text(
                                 "¿Aún no tienes una cuenta?",
 
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: anchoPantalla * 0.0389294403892944,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
@@ -225,7 +248,7 @@ class LoginPage extends StatelessWidget {
                                 "Regístrate",
 
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: anchoPantalla * 0.0389294403892944,
                                   color: Color.fromARGB(255, 31, 75, 165),
                                   fontWeight: FontWeight.bold,
                                 ),
