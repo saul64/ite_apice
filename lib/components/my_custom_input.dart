@@ -4,11 +4,15 @@ class MyCustomInput extends StatelessWidget {
   final String iconRoute;
   final String inputLabel;
   final String inputPlaceholder;
+  final TextInputType inputType;
+  final bool isTextHidden;
   const MyCustomInput({
     super.key,
     required this.iconRoute,
     required this.inputLabel,
     required this.inputPlaceholder,
+    required this.inputType,
+    required this.isTextHidden,
   });
 
   @override
@@ -46,7 +50,8 @@ class MyCustomInput extends StatelessWidget {
                   ),
                   Expanded(
                     child: TextField(
-                      keyboardType: TextInputType.emailAddress,
+                      obscureText: isTextHidden,
+                      keyboardType: inputType,
                       decoration: InputDecoration(
                         hintStyle: TextStyle(
                           fontSize: anchoPantalla * 0.048661800486618,

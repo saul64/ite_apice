@@ -74,12 +74,16 @@ class LoginPage extends StatelessWidget {
                           ),
                           SizedBox(height: altoPantalla * 0.0182926829268293),
                           MyCustomInput(
+                            isTextHidden: false,
+                            inputType: TextInputType.emailAddress,
                             iconRoute: "assets/icons/user.png",
                             inputLabel: "Correo institucional",
                             inputPlaceholder: "ejemplo@ite.edu.mx",
                           ),
                           SizedBox(height: altoPantalla * 0.0426829268292683),
                           MyCustomInput(
+                            isTextHidden: true,
+                            inputType: TextInputType.visiblePassword,
                             iconRoute: "assets/icons/lock.png",
                             inputLabel: "Contraseña",
                             inputPlaceholder: "********",

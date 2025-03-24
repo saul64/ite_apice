@@ -196,6 +196,8 @@ class RegisterPage extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         MyCustomInput(
+                                          isTextHidden: false,
+                                          inputType: TextInputType.name,
                                           iconRoute: "assets/icons/user.png",
                                           inputLabel: "",
                                           inputPlaceholder: "Nombre",
@@ -205,6 +207,8 @@ class RegisterPage extends StatelessWidget {
                                               altoPantalla * 0.0060975609756098,
                                         ),
                                         MyCustomInput(
+                                          isTextHidden: false,
+                                          inputType: TextInputType.name,
                                           iconRoute: "assets/icons/user.png",
                                           inputLabel: "",
                                           inputPlaceholder: "Apellido",
@@ -214,6 +218,8 @@ class RegisterPage extends StatelessWidget {
                                               altoPantalla * 0.0060975609756098,
                                         ),
                                         MyCustomInput(
+                                          isTextHidden: false,
+                                          inputType: TextInputType.emailAddress,
                                           iconRoute: "assets/icons/email.png",
                                           inputLabel: "",
                                           inputPlaceholder:
@@ -224,6 +230,8 @@ class RegisterPage extends StatelessWidget {
                                               altoPantalla * 0.0060975609756098,
                                         ),
                                         MyCustomInput(
+                                          isTextHidden: true,
+                                          inputType: TextInputType.text,
                                           iconRoute: "assets/icons/lock.png",
                                           inputLabel: "",
                                           inputPlaceholder: "Contraseña",
@@ -233,6 +241,8 @@ class RegisterPage extends StatelessWidget {
                                               altoPantalla * 0.0060975609756098,
                                         ),
                                         MyCustomInput(
+                                          isTextHidden: true,
+                                          inputType: TextInputType.text,
                                           iconRoute: "assets/icons/lock.png",
                                           inputLabel: "",
                                           inputPlaceholder:
@@ -309,8 +319,7 @@ class RegisterPage extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize:
                                         anchoPantalla * 0.0389294403892944,
-                                    color: Color.fromARGB(255, 31, 75, 165),
-                                    fontWeight: FontWeight.w300,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 GestureDetector(
