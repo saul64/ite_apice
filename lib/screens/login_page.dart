@@ -23,6 +23,7 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
+                      //ignorar este contenedor
                       width: double.infinity,
                       height: altoPantalla * 0.0792682926829268,
                       color: Color.fromARGB(255, 31, 75, 165),
