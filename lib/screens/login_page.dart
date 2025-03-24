@@ -88,6 +88,7 @@ class LoginPage extends StatelessWidget {
                               child: Container(
                                 width: double.infinity,
                                 height: double.infinity,
+                                color: Colors.orangeAccent,
 
                                 child: Column(
                                   children: [
