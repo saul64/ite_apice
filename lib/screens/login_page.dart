@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
                         color: Color.fromARGB(255, 255, 255, 255),
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
                             width: double.infinity,
