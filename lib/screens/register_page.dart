@@ -94,6 +94,129 @@ class RegisterPage extends StatelessWidget {
                                 ),
 
                                 SizedBox(height: 15),
+                                DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Color.fromARGB(
+                                      255,
+                                      31,
+                                      75,
+                                      165,
+                                    ), // Fondo azul
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                          BorderSide
+                                              .none, // Sin bordes externos
+                                    ),
+                                  ),
+                                  dropdownColor: Color.fromARGB(
+                                    255,
+                                    31,
+                                    75,
+                                    165,
+                                  ), // Color de la lista desplegable
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ), // Texto blanco
+                                  hint: Text(
+                                    "Selecciona tu carrera",
+                                    style: TextStyle(
+                                      color: Colors.white70,
+                                    ), // Color más tenue para el hint
+                                  ),
+                                  items:
+                                      [
+                                        "Ing. Sistemas Computacionales",
+                                        "Ing. Industrial",
+                                        "Ing. Electromecánica",
+                                        "Ing. Mecatrónica",
+                                        "Ing. Innovación Agrícola",
+                                        "Lic. Gestión Empresarial",
+                                      ].map((String carrera) {
+                                        return DropdownMenuItem<String>(
+                                          value: carrera,
+                                          child: Text(
+                                            carrera,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                  onChanged: (String? nuevaCarrera) {
+                                    if (nuevaCarrera != null) {
+                                      Future.delayed(
+                                        Duration(milliseconds: 100),
+                                        () {
+                                          Scrollable.ensureVisible(context);
+                                        },
+                                      );
+                                    }
+                                  },
+                                ),
+                                SizedBox(height: 15),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Desliza para llenar los campos ↓",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color.fromARGB(
+                                          255,
+                                          0,
+                                          0,
+                                          0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 15),
+                                Container(
+                                  width: double.infinity,
+                                  height: 270,
+
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        MyCustomInput(
+                                          iconRoute: "assets/icons/user.png",
+                                          inputLabel: "",
+                                          inputPlaceholder: "Nombre",
+                                        ),
+                                        SizedBox(height: 5),
+                                        MyCustomInput(
+                                          iconRoute: "assets/icons/user.png",
+                                          inputLabel: "",
+                                          inputPlaceholder: "Apellido",
+                                        ),
+                                        SizedBox(height: 5),
+                                        MyCustomInput(
+                                          iconRoute: "assets/icons/email.png",
+                                          inputLabel: "",
+                                          inputPlaceholder:
+                                              "Correo institucional",
+                                        ),
+                                        SizedBox(height: 5),
+                                        MyCustomInput(
+                                          iconRoute: "assets/icons/lock.png",
+                                          inputLabel: "",
+                                          inputPlaceholder: "Contraseña",
+                                        ),
+                                        SizedBox(height: 5),
+                                        MyCustomInput(
+                                          iconRoute: "assets/icons/lock.png",
+                                          inputLabel: "",
+                                          inputPlaceholder:
+                                              "Confirmar contraseña",
+                                        ),
+                                        SizedBox(height: 5),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
