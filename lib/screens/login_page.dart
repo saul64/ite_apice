@@ -72,7 +72,7 @@ class LoginPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 15),
+                          SizedBox(height: altoPantalla * 0.0182926829268293),
                           MyCustomInput(
                             iconRoute: "assets/icons/user.png",
                             inputLabel: "Correo institucional",

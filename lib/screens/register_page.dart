@@ -30,15 +30,20 @@ class RegisterPage extends StatelessWidget {
                             height: altoPantalla * 0.0792682926829268,
                             child: Row(
                               children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                    horizontal:
-                                        anchoPantalla * 0.048661800486618,
-                                  ),
+                                GestureDetector(
+                                  onTap: () => value.updateIndex(0),
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                      horizontal:
+                                          anchoPantalla * 0.048661800486618,
+                                    ),
 
-                                  width: anchoPantalla * 0.121654501216545,
-                                  height: altoPantalla * 0.0609756097560976,
-                                  child: Image.asset("assets/icons/return.png"),
+                                    width: anchoPantalla * 0.121654501216545,
+                                    height: altoPantalla * 0.0609756097560976,
+                                    child: Image.asset(
+                                      "assets/icons/return.png",
+                                    ),
+                                  ),
                                 ),
 
                                 Text(
@@ -94,7 +99,9 @@ class RegisterPage extends StatelessWidget {
                                   ),
                                 ),
 
-                                SizedBox(height: 15),
+                                SizedBox(
+                                  height: altoPantalla * 0.0182926829268293,
+                                ),
                                 DropdownButtonFormField<String>(
                                   decoration: InputDecoration(
                                     filled: true,
@@ -156,13 +163,17 @@ class RegisterPage extends StatelessWidget {
                                     }
                                   },
                                 ),
-                                SizedBox(height: 15),
+                                SizedBox(
+                                  height: altoPantalla * 0.0182926829268293,
+                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       "Desliza para llenar los campos ↓",
                                       style: TextStyle(
+                                        fontSize:
+                                            anchoPantalla * 0.0364963503649635,
                                         fontWeight: FontWeight.bold,
                                         color: const Color.fromARGB(
                                           255,
@@ -174,10 +185,12 @@ class RegisterPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 15),
+                                SizedBox(
+                                  height: altoPantalla * 0.0182926829268293,
+                                ),
                                 Container(
                                   width: double.infinity,
-                                  height: 270,
+                                  height: altoPantalla * 0.3292682926829268,
 
                                   child: SingleChildScrollView(
                                     child: Column(
@@ -187,36 +200,52 @@ class RegisterPage extends StatelessWidget {
                                           inputLabel: "",
                                           inputPlaceholder: "Nombre",
                                         ),
-                                        SizedBox(height: 5),
+                                        SizedBox(
+                                          height:
+                                              altoPantalla * 0.0060975609756098,
+                                        ),
                                         MyCustomInput(
                                           iconRoute: "assets/icons/user.png",
                                           inputLabel: "",
                                           inputPlaceholder: "Apellido",
                                         ),
-                                        SizedBox(height: 5),
+                                        SizedBox(
+                                          height:
+                                              altoPantalla * 0.0060975609756098,
+                                        ),
                                         MyCustomInput(
                                           iconRoute: "assets/icons/email.png",
                                           inputLabel: "",
                                           inputPlaceholder:
                                               "Correo institucional",
                                         ),
-                                        SizedBox(height: 5),
+                                        SizedBox(
+                                          height:
+                                              altoPantalla * 0.0060975609756098,
+                                        ),
                                         MyCustomInput(
                                           iconRoute: "assets/icons/lock.png",
                                           inputLabel: "",
                                           inputPlaceholder: "Contraseña",
                                         ),
-                                        SizedBox(height: 5),
+                                        SizedBox(
+                                          height:
+                                              altoPantalla * 0.0060975609756098,
+                                        ),
                                         MyCustomInput(
                                           iconRoute: "assets/icons/lock.png",
                                           inputLabel: "",
                                           inputPlaceholder:
                                               "Confirmar contraseña",
                                         ),
-                                        SizedBox(height: 15),
+                                        SizedBox(
+                                          height:
+                                              altoPantalla * 0.0182926829268293,
+                                        ),
                                         Container(
                                           width: double.infinity,
-                                          height: 100,
+                                          height:
+                                              altoPantalla * 0.1219512195121951,
 
                                           child: Column(
                                             children: [
@@ -235,9 +264,13 @@ class RegisterPage extends StatelessWidget {
                                                 ),
                                               ),
                                               Container(
-                                                width: 68,
+                                                width:
+                                                    anchoPantalla *
+                                                    0.1654501216545012,
 
-                                                height: 68,
+                                                height:
+                                                    altoPantalla *
+                                                    0.0838471023427867,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(15),
@@ -255,7 +288,10 @@ class RegisterPage extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        SizedBox(height: 15),
+                                        SizedBox(
+                                          height:
+                                              altoPantalla * 0.0184956843403206,
+                                        ),
                                         MyCustomButton(
                                           textButton: "Registrarse",
                                         ),
@@ -264,7 +300,9 @@ class RegisterPage extends StatelessWidget {
                                   ),
                                 ),
 
-                                SizedBox(height: 15),
+                                SizedBox(
+                                  height: altoPantalla * 0.0184956843403206,
+                                ),
                                 Text(
                                   "¿Ya tienes una cuenta?",
 
@@ -275,14 +313,17 @@ class RegisterPage extends StatelessWidget {
                                     fontWeight: FontWeight.w300,
                                   ),
                                 ),
-                                Text(
-                                  "Inicia sesión",
+                                GestureDetector(
+                                  onTap: () => value.updateIndex(0),
+                                  child: Text(
+                                    "Inicia sesión",
 
-                                  style: TextStyle(
-                                    fontSize:
-                                        anchoPantalla * 0.0389294403892944,
-                                    color: Color.fromARGB(255, 31, 75, 165),
-                                    fontWeight: FontWeight.bold,
+                                    style: TextStyle(
+                                      fontSize:
+                                          anchoPantalla * 0.0389294403892944,
+                                      color: Color.fromARGB(255, 31, 75, 165),
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ],
