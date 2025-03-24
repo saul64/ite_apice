@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ite_apice/components/my_custom_button.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
 import 'package:ite_apice/providers/login_nav_provider.dart';
 import 'package:provider/provider.dart';
@@ -91,28 +92,7 @@ class LoginPage extends StatelessWidget {
 
                               child: Column(
                                 children: [
-                                  Container(
-                                    width: anchoPantalla * 0.5596107055961071,
-                                    height: altoPantalla * 0.0548780487804878,
-                                    decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 31, 75, 165),
-
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Iniciar sesión",
-
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize:
-                                              anchoPantalla *
-                                              0.0437956204379562,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  MyCustomButton(textButton: "Iniciar sesión"),
                                   SizedBox(
                                     height: altoPantalla * 0.0365853658536585,
                                   ),

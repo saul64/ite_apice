@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ite_apice/components/my_custom_button.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
 import 'package:ite_apice/providers/login_nav_provider.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +65,7 @@ class RegisterPage extends StatelessWidget {
                               color: Color.fromARGB(255, 255, 255, 255),
                             ),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
                                   width: double.infinity,
@@ -212,9 +213,76 @@ class RegisterPage extends StatelessWidget {
                                           inputPlaceholder:
                                               "Confirmar contraseña",
                                         ),
-                                        SizedBox(height: 5),
+                                        SizedBox(height: 15),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 100,
+
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Foto de perfil (opcional)",
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      anchoPantalla *
+                                                      0.048661800486618,
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    131,
+                                                    130,
+                                                    130,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 68,
+
+                                                height: 68,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  color: Color.fromARGB(
+                                                    255,
+                                                    184,
+                                                    181,
+                                                    181,
+                                                  ),
+                                                ),
+                                                child: Image.asset(
+                                                  "assets/icons/addimage.png",
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(height: 15),
+                                        MyCustomButton(
+                                          textButton: "Registrarse",
+                                        ),
                                       ],
                                     ),
+                                  ),
+                                ),
+
+                                SizedBox(height: 15),
+                                Text(
+                                  "¿Ya tienes una cuenta?",
+
+                                  style: TextStyle(
+                                    fontSize:
+                                        anchoPantalla * 0.0389294403892944,
+                                    color: Color.fromARGB(255, 31, 75, 165),
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                                Text(
+                                  "Inicia sesión",
+
+                                  style: TextStyle(
+                                    fontSize:
+                                        anchoPantalla * 0.0389294403892944,
+                                    color: Color.fromARGB(255, 31, 75, 165),
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],
