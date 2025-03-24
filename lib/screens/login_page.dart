@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ite_apice/components/my_custom_input.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -65,143 +66,16 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: altoPantalla * 0.048780487804878),
-                    Container(
-                      width: double.infinity,
-                      height: altoPantalla * 0.0975609756097561,
-                      child: Row(
-                        children: [
-                          Container(
-                            width: anchoPantalla * 0.121654501216545,
-                            height: altoPantalla * 0.0609756097560976,
-                            child: Image.asset("assets/icons/user.png"),
-                          ),
-                          SizedBox(width: anchoPantalla * 0.0608272506082725),
-                          Expanded(
-                            child: Container(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Correo institucional:",
-
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize:
-                                          anchoPantalla * 0.048661800486618,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      keyboardType: TextInputType.emailAddress,
-                                      decoration: InputDecoration(
-                                        hintStyle: TextStyle(
-                                          fontSize:
-                                              anchoPantalla * 0.048661800486618,
-                                          color: const Color.fromARGB(
-                                            255,
-                                            131,
-                                            130,
-                                            130,
-                                          ),
-                                        ),
-
-                                        hintText: "ejemplo@ite.edu.mx",
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Colors.black,
-                                            width: 2.0,
-                                          ),
-                                        ),
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color:
-                                                Colors
-                                                    .black, // Cambia el color de la línea a negro
-                                            width:
-                                                2.0, // Ajusta el ancho de la línea
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    MyCustomInput(
+                      iconRoute: "assets/icons/user.png",
+                      inputLabel: "Correo institucional",
+                      inputPlaceholder: "ejemplo@ite.edu.mx",
                     ),
                     SizedBox(height: altoPantalla * 0.0426829268292683),
-                    Container(
-                      width: double.infinity,
-                      height: altoPantalla * 0.0975609756097561,
-                      child: Row(
-                        children: [
-                          Container(
-                            width: anchoPantalla * 0.121654501216545,
-                            height: altoPantalla * 0.0609756097560976,
-                            child: Image.asset("assets/icons/lock.png"),
-                          ),
-                          SizedBox(width: anchoPantalla * 0.0608272506082725),
-                          Expanded(
-                            child: Container(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Contraseña:",
-
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize:
-                                          anchoPantalla * 0.048661800486618,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      keyboardType: TextInputType.emailAddress,
-                                      decoration: InputDecoration(
-                                        hintStyle: TextStyle(
-                                          fontSize:
-                                              anchoPantalla * 0.048661800486618,
-                                          color: const Color.fromARGB(
-                                            255,
-                                            131,
-                                            130,
-                                            130,
-                                          ),
-                                        ),
-                                        hintText: "********",
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Colors.black,
-                                            width: 2.0,
-                                          ),
-                                        ),
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color:
-                                                Colors
-                                                    .black, // Cambia el color de la línea a negro
-                                            width:
-                                                2.0, // Ajusta el ancho de la línea
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    MyCustomInput(
+                      iconRoute: "assets/icons/lock.png",
+                      inputLabel: "Contraseña",
+                      inputPlaceholder: "********",
                     ),
                     SizedBox(height: 30),
                     Expanded(
