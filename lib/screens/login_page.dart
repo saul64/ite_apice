@@ -70,7 +70,7 @@ class LoginPage extends StatelessWidget {
                       inputType: TextInputType.emailAddress,
                       iconRoute: "assets/icons/user.png",
                       inputLabel: "Correo institucional",
-                      inputPlaceholder: "ejemplo@ite.edu.mx",
+                      inputPlaceholder: "ejemplo@ite.edu.mx", controller: TextEditingController(),
                     ),
                     SizedBox(height: altoPantalla * 0.0426829268292683),
                     MyCustomInput(
@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
                       inputType: TextInputType.visiblePassword,
                       iconRoute: "assets/icons/lock.png",
                       inputLabel: "Contraseña",
-                      inputPlaceholder: "********",
+                      inputPlaceholder: "********", controller: TextEditingController(),
                     ),
                     SizedBox(height: altoPantalla * 0.0365853658536585),
                     Expanded(
@@ -88,7 +88,7 @@ class LoginPage extends StatelessWidget {
 
                         child: Column(
                           children: [
-                            MyCustomButton(textButton: "Iniciar sesión"),
+                            MyCustomButton(textButton: "Iniciar sesión", onPressed: () {  },),
                             SizedBox(height: altoPantalla * 0.0365853658536585),
                             Text(
                               "¿Aún no tienes una cuenta?",

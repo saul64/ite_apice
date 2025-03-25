@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
+//importaciones de firebase
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+//importaciones de las pantallas
 import 'package:ite_apice/screens/login_page.dart';
 import 'package:ite_apice/screens/register_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MainApp());
 }
 
@@ -14,9 +20,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/",
+      initialRoute: "/login_page",
       routes: {
-        '/': (context) => LoginPage(),
+        '/login_page': (context) => LoginPage(),
         '/registerPage': (context) => RegisterPage(),
       },
       debugShowCheckedModeBanner: false,
