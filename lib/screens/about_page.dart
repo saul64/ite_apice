@@ -1,16 +1,56 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ite_apice/components/my_custom_button.dart';
+import 'package:ite_apice/components/about_one.dart';
+import 'package:ite_apice/components/about_three.dart';
+import 'package:ite_apice/components/about_two.dart';
 import 'package:ite_apice/components/small_button.dart';
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
 
   @override
+  _AboutPageState createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoScroll();
+  }
+
+  void _startAutoScroll() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentPage < 2) {
+        _currentPage++;
+      } else {
+        _currentPage = 0; // Reinicia al principio
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Detener el temporizador cuando la pantalla se cierre
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //411.42857142857144
+    // 411.42857142857144
     double anchoPantalla = MediaQuery.of(context).size.width;
 
-    //820.5714285714286
+    // 820.5714285714286
     double altoPantalla = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
@@ -47,74 +87,39 @@ class AboutPage extends StatelessWidget {
                       ),
                       child: Container(
                         width: double.infinity,
-                        height: altoPantalla * 0.2804878048780488,
-                        child: Image.asset(
-                          "assets/images/about1.jpg",
-                          fit: BoxFit.cover,
+                        height: altoPantalla * 0.4878048780487805,
+                        child: PageView(
+                          controller: _pageController,
+                          onPageChanged: (index) {
+                            setState(() {
+                              _currentPage = index;
+                            });
+                          },
+                          children: [
+                            // Aquí defines las pantallas con las imágenes
+                            AboutOne(),
+                            AboutTwo(),
+                            AboutThree(),
+                          ],
                         ),
                       ),
                     ),
                     SizedBox(height: altoPantalla * 0.0121951219512195),
-                    Text(
-                      "Cumple con tu servicio.",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        fontFamily: "Times New Roman",
-                      ),
-                    ),
-                    Text(
-                      "Crece con tus prácticas.",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        fontFamily: "Times New Roman",
-                      ),
-                    ),
-                    Text(
-                      "Destaca en tu residencia",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        fontFamily: "Times New Roman",
-                      ),
-                    ),
-                    SizedBox(height: altoPantalla * 0.0121951219512195),
-                    Text(
-                      "Tu camino profesional, empieza aquí",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 14,
-                        fontFamily: "Serif",
-                      ),
-                    ),
-                    Container(
-                      width: anchoPantalla * 0.364963503649635,
-                      height: altoPantalla * 0.0609756097560976,
-
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: anchoPantalla * 0.072992700729927,
-                            height: altoPantalla * 0.0365853658536585,
-                            child: Image.asset(
-                              "assets/icons/circleblue.png",
-                              fit: BoxFit.fitWidth,
-                            ),
+                    // Los puntitos
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(3, (index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 4),
+                          width: anchoPantalla * 0.072992700729927,
+                          height: altoPantalla * 0.0365853658536585,
+                          child: Image.asset(
+                            index == _currentPage
+                                ? "assets/icons/circleblue.png" // Puntito azul
+                                : "assets/icons/circle.png", // Puntito gris
                           ),
-                          Container(
-                            width: anchoPantalla * 0.072992700729927,
-                            height: altoPantalla * 0.0365853658536585,
-                            child: Image.asset("assets/icons/circle.png"),
-                          ),
-                          Container(
-                            width: anchoPantalla * 0.072992700729927,
-                            height: altoPantalla * 0.0365853658536585,
-                            child: Image.asset("assets/icons/circle.png"),
-                          ),
-                        ],
-                      ),
+                        );
+                      }),
                     ),
                     SizedBox(height: 50),
                     Row(
