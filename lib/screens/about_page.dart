@@ -24,7 +24,7 @@ class _AboutPageState extends State<AboutPage> {
   }
 
   void _startAutoScroll() {
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 6), (timer) {
       if (_currentPage < 2) {
         _currentPage++;
       } else {
@@ -32,7 +32,7 @@ class _AboutPageState extends State<AboutPage> {
       }
       _pageController.animateToPage(
         _currentPage,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
       );
     });
@@ -109,14 +109,25 @@ class _AboutPageState extends State<AboutPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(3, (index) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 4),
-                          width: anchoPantalla * 0.072992700729927,
-                          height: altoPantalla * 0.0365853658536585,
-                          child: Image.asset(
-                            index == _currentPage
-                                ? "assets/icons/circleblue.png" // Puntito azul
-                                : "assets/icons/circle.png", // Puntito gris
+                        return AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          margin: EdgeInsets.symmetric(horizontal: 5),
+                          width:
+                              _currentPage == index
+                                  ? 12
+                                  : 8, // Cambia de tamaño el punto activo
+                          height: _currentPage == index ? 12 : 8,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:
+                                _currentPage == index
+                                    ? Color.fromARGB(
+                                      255,
+                                      31,
+                                      75,
+                                      165,
+                                    ) // Color activo
+                                    : Colors.grey, // Color inactivo
                           ),
                         );
                       }),
