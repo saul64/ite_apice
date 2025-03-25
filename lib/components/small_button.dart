@@ -8,18 +8,16 @@ class SmallButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
     double altoPantalla = MediaQuery.of(context).size.height;
-    return SizedBox(
+    return Container(
       width: anchoPantalla * 0.389294403892944,
       height: altoPantalla * 0.0548780487804878,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 31, 75, 165),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          padding: EdgeInsets.zero,
-        ),
+
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 31, 75, 165),
+        borderRadius: BorderRadius.circular(15),
+      ),
+
+      child: Center(
         child: Text(
           textButton,
           style: TextStyle(

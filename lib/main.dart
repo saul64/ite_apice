@@ -22,6 +22,7 @@ class MainApp extends StatelessWidget {
       routes: {
         '/': (context) => AboutPage(),
         '/registerPage': (context) => RegisterPage(),
+        '/loginPage': (context) => LoginPage(),
       },
       debugShowCheckedModeBanner: false,
     );

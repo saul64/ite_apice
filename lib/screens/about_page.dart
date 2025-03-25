@@ -138,8 +138,17 @@ class _AboutPageState extends State<AboutPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SmallButton(textButton: "Iniciar sesión"),
-                        SmallButton(textButton: "Registrarse"),
+                        GestureDetector(
+                          onTap:
+                              () => Navigator.pushNamed(context, "/loginPage"),
+                          child: SmallButton(textButton: "Iniciar sesión"),
+                        ),
+                        GestureDetector(
+                          onTap:
+                              () =>
+                                  Navigator.pushNamed(context, "/registerPage"),
+                          child: SmallButton(textButton: "Registrarse"),
+                        ),
                       ],
                     ),
                   ],
