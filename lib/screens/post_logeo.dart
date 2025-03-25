@@ -22,7 +22,7 @@ class PostLogeo extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); // Regresar a la pantalla anterior
+                Navigator.pop(context); 
               },
               child: const Text("Cerrar sesión"),
             ),

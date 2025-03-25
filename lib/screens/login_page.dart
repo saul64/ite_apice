@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ite_apice/components/my_custom_button.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
 import 'package:ite_apice/screens/register_page.dart';
-import 'package:ite_apice/screens/post_logeo.dart'; // Importa la pantalla de post-logeo
+import 'package:ite_apice/screens/post_logeo.dart';
 import 'package:ite_apice/services/firebase_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
       // Redirigir a la pantalla de post-logeo
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PostLogeo()), // Cambia 'HomePage' por la página correcta
+        MaterialPageRoute(builder: (context) => PostLogeo()), 
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

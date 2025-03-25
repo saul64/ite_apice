@@ -73,8 +73,8 @@ class MyCustomInput extends StatelessWidget {
                           borderSide: BorderSide(
                             color:
                                 Colors
-                                    .black, // Cambia el color de la línea a negro
-                            width: 2.0, // Ajusta el ancho de la línea
+                                    .black, 
+                            width: 2.0, 
                           ),
                         ),
                       ),

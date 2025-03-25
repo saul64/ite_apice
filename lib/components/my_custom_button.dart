@@ -14,7 +14,7 @@ class MyCustomButton extends StatelessWidget {
       width: anchoPantalla * 0.5596107055961071,
       height: altoPantalla * 0.0548780487804878,
       child: ElevatedButton(
-        onPressed: onPressed, // Asegúrate de que aquí se llame al onPressed que pasas
+        onPressed: onPressed, 
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 31, 75, 165),
           shape: RoundedRectangleBorder(

@@ -95,40 +95,58 @@ class _RegisterPageState extends State<RegisterPage> {
                       confirmPasswordController: _confirmPasswordController,
                       selectedCarrera: _selectedCarrera,
                       onRegisterPressed: () {
-                        if (_passwordController.text ==
-                            _confirmPasswordController.text) {
-                          registerUser(
-                                _nombreController.text,
-                                _apellidoController.text,
-                                _emailController.text,
-                                _passwordController.text,
-                                _selectedCarrera ?? "",
-                              )
-                              .then((_) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      "Usuario registrado con éxito",
-                                    ),
-                                  ),
-                                );
-                              })
-                              .catchError((e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      "Error al registrar usuario: $e",
-                                    ),
-                                  ),
-                                );
-                              });
-                        } else {
+                        if (_nombreController.text.isEmpty ||
+                            _apellidoController.text.isEmpty ||
+                            _emailController.text.isEmpty ||
+                            _passwordController.text.isEmpty ||
+                            _confirmPasswordController.text.isEmpty ||
+                            _selectedCarrera == null ||
+                            _selectedCarrera!.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("Las contraseñas no coinciden"),
+                            const SnackBar(
+                              content: Text(
+                                "Todos los campos son obligatorios",
+                              ),
+                              backgroundColor: Colors.red,
                             ),
                           );
+                          return;
                         }
+                        if (_passwordController.text !=
+                            _confirmPasswordController.text) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Las contraseñas no coinciden"),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          return;
+                        }
+                        registerUser(
+                              _nombreController.text,
+                              _apellidoController.text,
+                              _emailController.text,
+                              _passwordController.text,
+                              _selectedCarrera ?? "",
+                            )
+                            .then((_) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Usuario registrado con éxito"),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                            })
+                            .catchError((e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Error al registrar usuario: $e",
+                                  ),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            });
                       },
                     ),
                     SizedBox(height: 15),
