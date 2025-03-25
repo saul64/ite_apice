@@ -33,9 +33,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 width: double.infinity,
                 height: altoPantalla * 0.8719512195121951,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                ),
+                //contenedor padre
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -48,21 +46,13 @@ class LoginPage extends StatelessWidget {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                            left: anchoPantalla * 0.072992700729927,
-                          ),
-                        ),
-                        Text(
-                          "¡Bienvenid@!",
-                          style: TextStyle(
-                            fontSize: anchoPantalla * 0.0583941605839416,
-                            color: const Color.fromARGB(255, 108, 105, 105),
-                          ),
-                        ),
-                      ],
+                    Text(
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: anchoPantalla * 0.048661800486618,
+                      ),
+                      "¡Es genial tenerte de vuelta!",
                     ),
                     SizedBox(height: altoPantalla * 0.0182926829268293),
                     MyCustomInput(
