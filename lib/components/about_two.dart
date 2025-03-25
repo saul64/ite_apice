@@ -26,7 +26,7 @@ class AboutTwo extends StatelessWidget {
           "Encuentra ofertas de servicio social, prácticas y residencias",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontSize: anchoPantalla * 0.0535279805352798,
             fontFamily: "Times New Roman",
           ),
         ),
@@ -37,7 +37,7 @@ class AboutTwo extends StatelessWidget {
           "¿No sabes dónde hacer tu servicio social?\nNosotros te ayudamos",
           style: TextStyle(
             fontWeight: FontWeight.w900,
-            fontSize: 14,
+            fontSize: anchoPantalla * 0.0340632603406326,
             fontFamily: "Serif",
           ),
         ),

@@ -25,7 +25,7 @@ class AboutOne extends StatelessWidget {
           "Cumple con tu servicio.",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 24,
+            fontSize: anchoPantalla * 0.0583941605839416,
             fontFamily: "Times New Roman",
           ),
         ),
@@ -33,7 +33,7 @@ class AboutOne extends StatelessWidget {
           "Crece con tus prácticas.",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 24,
+            fontSize: anchoPantalla * 0.0583941605839416,
             fontFamily: "Times New Roman",
           ),
         ),
@@ -41,7 +41,7 @@ class AboutOne extends StatelessWidget {
           "Destaca en tu residencia",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 24,
+            fontSize: anchoPantalla * 0.0583941605839416,
             fontFamily: "Times New Roman",
           ),
         ),
@@ -50,7 +50,7 @@ class AboutOne extends StatelessWidget {
           "Tu camino profesional, empieza aquí",
           style: TextStyle(
             fontWeight: FontWeight.w900,
-            fontSize: 14,
+            fontSize: anchoPantalla * 0.0340632603406326,
             fontFamily: "Serif",
           ),
         ),

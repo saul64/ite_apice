@@ -26,7 +26,7 @@ class AboutThree extends StatelessWidget {
           "Sé el primero en enterarte de nuevas oportunidades que encajen contigo.",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontSize: anchoPantalla * 0.0535279805352798,
             fontFamily: "Times New Roman",
           ),
         ),
@@ -36,7 +36,7 @@ class AboutThree extends StatelessWidget {
           "Impulsa tu futuro desde hoy",
           style: TextStyle(
             fontWeight: FontWeight.w900,
-            fontSize: 14,
+            fontSize: anchoPantalla * 0.0340632603406326,
             fontFamily: "Serif",
           ),
         ),

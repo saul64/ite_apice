@@ -111,7 +111,9 @@ class _AboutPageState extends State<AboutPage> {
                       children: List.generate(3, (index) {
                         return AnimatedContainer(
                           duration: Duration(milliseconds: 300),
-                          margin: EdgeInsets.symmetric(horizontal: 5),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: anchoPantalla * 0.0121654501216545,
+                          ),
                           width:
                               _currentPage == index
                                   ? 12
@@ -132,7 +134,7 @@ class _AboutPageState extends State<AboutPage> {
                         );
                       }),
                     ),
-                    SizedBox(height: 50),
+                    SizedBox(height: altoPantalla * 0.0609756097560976),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
