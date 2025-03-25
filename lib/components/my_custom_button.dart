@@ -14,15 +14,18 @@ class MyCustomButton extends StatelessWidget {
     return Container(
       width: anchoPantalla * 0.5596107055961071,
       height: altoPantalla * 0.0548780487804878,
-      decoration: BoxDecoration(
-        color: Color.fromARGB(255, 31, 75, 165),
 
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Center(
+      child: ElevatedButton(
+        onPressed: () => print("tocando"),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 31, 75, 165),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          padding: EdgeInsets.zero,
+        ),
         child: Text(
           textButton,
-
           style: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: anchoPantalla * 0.0437956204379562,
