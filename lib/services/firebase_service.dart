@@ -24,3 +24,29 @@ Future<void> registerUser(String nombre, String apellido, String email, String p
 }
 
 //logeando usuario
+Future<bool> loginUser(String email, String password) async {
+  try {
+    QuerySnapshot querySnapshot = await firestoreDB
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+      print("Usuario no encontrado");
+      return false;
+    }
+
+    var userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+
+    if (userData['password'] == password) {
+      print("Inicio de sesión exitoso");
+      return true;
+    } else {
+      print("Contraseña incorrecta");
+      return false;
+    }
+  } catch (e) {
+    print("Error al iniciar sesión: $e");
+    return false;
+  }
+}

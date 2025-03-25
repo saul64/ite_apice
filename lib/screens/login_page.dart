@@ -2,119 +2,124 @@ import 'package:flutter/material.dart';
 import 'package:ite_apice/components/my_custom_button.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
 import 'package:ite_apice/screens/register_page.dart';
+import 'package:ite_apice/screens/post_logeo.dart'; // Importa la pantalla de post-logeo
+import 'package:ite_apice/services/firebase_service.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    //411.42857142857144
-    double anchoPantalla = MediaQuery.of(context).size.width;
+  _LoginPageState createState() => _LoginPageState();
+}
 
-    //820.5714285714286
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void _handleLogin() async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    bool loginSuccess = await loginUser(email, password);
+
+    if (loginSuccess) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Inicio de sesión exitoso")),
+      );
+
+      // Redirigir a la pantalla de post-logeo
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => PostLogeo()), // Cambia 'HomePage' por la página correcta
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Correo o contraseña incorrectos")),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double anchoPantalla = MediaQuery.of(context).size.width;
     double altoPantalla = MediaQuery.of(context).size.height;
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                //ignorar este contenedor
                 width: double.infinity,
-                height: altoPantalla * 0.0792682926829268,
-                color: Color.fromARGB(255, 31, 75, 165),
+                height: altoPantalla * 0.079,
+                color: const Color.fromARGB(255, 31, 75, 165),
               ),
-
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: anchoPantalla * 0.121654501216545,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: anchoPantalla * 0.12),
                 width: double.infinity,
-                height: altoPantalla * 0.8719512195121951,
-                //contenedor padre
+                height: altoPantalla * 0.87,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
-                      height: altoPantalla * 0.2926829268292683,
-
-                      child: Image.asset(
-                        "assets/images/logo.jpg",
-                        fit: BoxFit.fill,
-                      ),
+                      height: altoPantalla * 0.29,
+                      child: Image.asset("assets/images/logo.jpg", fit: BoxFit.fill),
                     ),
                     Text(
+                      "¡Es genial tenerte de vuelta!",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: anchoPantalla * 0.048661800486618,
+                        fontSize: anchoPantalla * 0.048,
                       ),
-                      "¡Es genial tenerte de vuelta!",
                     ),
-                    SizedBox(height: altoPantalla * 0.0182926829268293),
+                    SizedBox(height: altoPantalla * 0.018),
                     MyCustomInput(
+                      controller: emailController,
                       isTextHidden: false,
                       inputType: TextInputType.emailAddress,
                       iconRoute: "assets/icons/user.png",
                       inputLabel: "Correo institucional",
-                      inputPlaceholder: "ejemplo@ite.edu.mx", controller: TextEditingController(),
+                      inputPlaceholder: "ejemplo@ite.edu.mx",
                     ),
-                    SizedBox(height: altoPantalla * 0.0426829268292683),
+                    SizedBox(height: altoPantalla * 0.04),
                     MyCustomInput(
+                      controller: passwordController,
                       isTextHidden: true,
                       inputType: TextInputType.visiblePassword,
                       iconRoute: "assets/icons/lock.png",
                       inputLabel: "Contraseña",
-                      inputPlaceholder: "********", controller: TextEditingController(),
+                      inputPlaceholder: "********",
                     ),
-                    SizedBox(height: altoPantalla * 0.0365853658536585),
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-
-                        child: Column(
+                    SizedBox(height: altoPantalla * 0.036),
+                    MyCustomButton(textButton: "Iniciar sesión", onPressed: _handleLogin),
+                    SizedBox(height: altoPantalla * 0.036),
+                    Text(
+                      "¿Aún no tienes una cuenta?",
+                      style: TextStyle(
+                        fontSize: anchoPantalla * 0.038,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RegisterPage()),
+                      ),
+                      child: SizedBox(
+                        width: anchoPantalla * 0.36,
+                        height: altoPantalla * 0.06,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            MyCustomButton(textButton: "Iniciar sesión", onPressed: () {  },),
-                            SizedBox(height: altoPantalla * 0.0365853658536585),
                             Text(
-                              "¿Aún no tienes una cuenta?",
-
+                              "Regístrate",
                               style: TextStyle(
-                                fontSize: anchoPantalla * 0.0389294403892944,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap:
-                                  () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => RegisterPage(),
-                                    ),
-                                  ),
-                              child: SizedBox(
-                                width: anchoPantalla * 0.364963503649635,
-                                height: altoPantalla * 0.0609756097560976,
-
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Regístrate",
-
-                                      style: TextStyle(
-                                        fontSize:
-                                            anchoPantalla * 0.0389294403892944,
-                                        color: Color.fromARGB(255, 31, 75, 165),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                fontSize: anchoPantalla * 0.038,
+                                color: const Color.fromARGB(255, 31, 75, 165),
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],

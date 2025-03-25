@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:ite_apice/components/my_custom_button.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
-import 'package:ite_apice/services/firebase_service.dart';
 
 class RegisterForm extends StatelessWidget {
   final TextEditingController nombreController;
