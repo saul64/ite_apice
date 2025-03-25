@@ -16,7 +16,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _apellidoController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   String? _selectedCarrera;
 
   @override
@@ -27,7 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        body: SingleChildScrollView( 
+        body: SingleChildScrollView(
           child: Column(
             children: [
               HeaderWidget(
@@ -39,7 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   horizontal: anchoPantalla * 0.121654501216545,
                 ),
                 width: double.infinity,
-          
+
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                 ),
@@ -77,6 +78,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       },
                     ),
                     SizedBox(height: altoPantalla * 0.0182926829268293),
+                    Text(
+                      "Por favor llena los siguientes campos:",
+
+                      style: TextStyle(
+                        fontSize: anchoPantalla * 0.0389294403892944,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(height: altoPantalla * 0.0182926829268293),
                     RegisterForm(
                       nombreController: _nombreController,
                       apellidoController: _apellidoController,
@@ -85,28 +95,72 @@ class _RegisterPageState extends State<RegisterPage> {
                       confirmPasswordController: _confirmPasswordController,
                       selectedCarrera: _selectedCarrera,
                       onRegisterPressed: () {
-                        if (_passwordController.text == _confirmPasswordController.text) {
+                        if (_passwordController.text ==
+                            _confirmPasswordController.text) {
                           registerUser(
-                            _nombreController.text,
-                            _apellidoController.text,
-                            _emailController.text,
-                            _passwordController.text,
-                            _selectedCarrera ?? "",
-                          ).then((_) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Usuario registrado con éxito")),
-                            );
-                          }).catchError((e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Error al registrar usuario: $e")),
-                            );
-                          });
+                                _nombreController.text,
+                                _apellidoController.text,
+                                _emailController.text,
+                                _passwordController.text,
+                                _selectedCarrera ?? "",
+                              )
+                              .then((_) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Usuario registrado con éxito",
+                                    ),
+                                  ),
+                                );
+                              })
+                              .catchError((e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Error al registrar usuario: $e",
+                                    ),
+                                  ),
+                                );
+                              });
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Las contraseñas no coinciden")),
+                            SnackBar(
+                              content: Text("Las contraseñas no coinciden"),
+                            ),
                           );
                         }
                       },
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      "¿Ya tienes una cuenta?",
+
+                      style: TextStyle(
+                        fontSize: anchoPantalla * 0.0389294403892944,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: SizedBox(
+                        width: anchoPantalla * 0.364963503649635,
+                        height: altoPantalla * 0.0365853658536585,
+
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Inicia sesión",
+
+                              style: TextStyle(
+                                fontSize: anchoPantalla * 0.0389294403892944,
+                                color: Color.fromARGB(255, 31, 75, 165),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
