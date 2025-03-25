@@ -22,17 +22,8 @@ class HeaderWidget extends StatelessWidget {
       width: double.infinity,
       height: altoPantalla * 0.0792682926829268,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GestureDetector(
-            child: Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: anchoPantalla * 0.048661800486618,
-              ),
-              width: anchoPantalla * 0.121654501216545,
-              height: altoPantalla * 0.0609756097560976,
-              child: Image.asset("assets/icons/return.png"),
-            ),
-          ),
           Text(
             title,
             style: TextStyle(
