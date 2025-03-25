@@ -159,7 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => Navigator.pop(context),
+                      onTap:() => Navigator.pushNamed(context, "/loginPage"),
                       child: SizedBox(
                         width: anchoPantalla * 0.364963503649635,
                         height: altoPantalla * 0.0365853658536585,
