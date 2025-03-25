@@ -1,77 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:ite_apice/components/my_custom_button.dart';
-import 'package:ite_apice/components/my_custom_input.dart';
+import 'package:ite_apice/widgets/header_widget.dart';
+import 'package:ite_apice/components/register_form.dart';
+import 'package:ite_apice/components/carrera_dropdown.dart';
+import 'package:ite_apice/services/firebase_service.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    //411.42857142857144
-    double anchoPantalla = MediaQuery.of(context).size.width;
+  _RegisterPageState createState() => _RegisterPageState();
+}
 
-    //820.5714285714286
+class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController _nombreController = TextEditingController();
+  final TextEditingController _apellidoController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  String? _selectedCarrera;
+
+  @override
+  Widget build(BuildContext context) {
+    double anchoPantalla = MediaQuery.of(context).size.width;
     double altoPantalla = MediaQuery.of(context).size.height;
 
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        body: SingleChildScrollView(
+        body: SingleChildScrollView( 
           child: Column(
             children: [
-              Container(
-                color: Color.fromARGB(255, 31, 75, 165),
-                width: double.infinity,
-                height: altoPantalla * 0.0792682926829268,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: anchoPantalla * 0.048661800486618,
-                        ),
-
-                        width: anchoPantalla * 0.121654501216545,
-                        height: altoPantalla * 0.0609756097560976,
-                        child: Image.asset("assets/icons/return.png"),
-                      ),
-                    ),
-
-                    Text(
-                      "Registro",
-                      style: TextStyle(
-                        color: Colors.white,
-
-                        fontWeight: FontWeight.w500,
-                        fontSize: anchoPantalla * 0.0535279805352798,
-                      ),
-                    ),
-                  ],
-                ),
+              HeaderWidget(
+                title: "Registro",
+                onBackPressed: () => Navigator.pop(context),
               ),
-
               Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: anchoPantalla * 0.121654501216545,
                 ),
                 width: double.infinity,
-                height: altoPantalla * 0.8719512195121951,
+          
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       height: altoPantalla * 0.2926829268292683,
                       child: Column(
                         children: [
-                          Container(
+                          SizedBox(
                             width: double.infinity,
                             height: altoPantalla * 0.2073170731707317,
-
                             child: Image.asset("assets/images/logo.jpg"),
                           ),
                           Text(
@@ -85,193 +67,46 @@ class RegisterPage extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     SizedBox(height: altoPantalla * 0.0182926829268293),
-                    DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color.fromARGB(
-                          255,
-                          31,
-                          75,
-                          165,
-                        ), // Fondo azul
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none, // Sin bordes externos
-                        ),
-                      ),
-                      dropdownColor: Color.fromARGB(
-                        255,
-                        31,
-                        75,
-                        165,
-                      ), // Color de la lista desplegable
-                      style: TextStyle(color: Colors.white), // Texto blanco
-                      hint: Text(
-                        "Selecciona tu carrera",
-                        style: TextStyle(
-                          color: Colors.white70,
-                        ), // Color más tenue para el hint
-                      ),
-                      items:
-                          [
-                            "Ing. Sistemas Computacionales",
-                            "Ing. Industrial",
-                            "Ing. Electromecánica",
-                            "Ing. Mecatrónica",
-                            "Ing. Innovación Agrícola",
-                            "Lic. Gestión Empresarial",
-                          ].map((String carrera) {
-                            return DropdownMenuItem<String>(
-                              value: carrera,
-                              child: Text(
-                                carrera,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            );
-                          }).toList(),
+                    CarreraDropdown(
+                      selectedCarrera: _selectedCarrera,
                       onChanged: (String? nuevaCarrera) {
-                        if (nuevaCarrera != null) {
-                          Future.delayed(Duration(milliseconds: 100), () {
-                            Scrollable.ensureVisible(context);
-                          });
-                        }
+                        setState(() {
+                          _selectedCarrera = nuevaCarrera;
+                        });
                       },
                     ),
                     SizedBox(height: altoPantalla * 0.0182926829268293),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Desliza para llenar los campos ↓",
-                          style: TextStyle(
-                            fontSize: anchoPantalla * 0.0364963503649635,
-                            fontWeight: FontWeight.bold,
-                            color: const Color.fromARGB(255, 0, 0, 0),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: altoPantalla * 0.0182926829268293),
-                    Container(
-                      width: double.infinity,
-                      height: altoPantalla * 0.3292682926829268,
-
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            MyCustomInput(
-                              isTextHidden: false,
-                              inputType: TextInputType.name,
-                              iconRoute: "assets/icons/user.png",
-                              inputLabel: "",
-                              inputPlaceholder: "Nombre",
-                            ),
-                            SizedBox(height: altoPantalla * 0.0060975609756098),
-                            MyCustomInput(
-                              isTextHidden: false,
-                              inputType: TextInputType.name,
-                              iconRoute: "assets/icons/user.png",
-                              inputLabel: "",
-                              inputPlaceholder: "Apellido",
-                            ),
-                            SizedBox(height: altoPantalla * 0.0060975609756098),
-                            MyCustomInput(
-                              isTextHidden: false,
-                              inputType: TextInputType.emailAddress,
-                              iconRoute: "assets/icons/email.png",
-                              inputLabel: "",
-                              inputPlaceholder: "Correo institucional",
-                            ),
-                            SizedBox(height: altoPantalla * 0.0060975609756098),
-                            MyCustomInput(
-                              isTextHidden: true,
-                              inputType: TextInputType.text,
-                              iconRoute: "assets/icons/lock.png",
-                              inputLabel: "",
-                              inputPlaceholder: "Contraseña",
-                            ),
-                            SizedBox(height: altoPantalla * 0.0060975609756098),
-                            MyCustomInput(
-                              isTextHidden: true,
-                              inputType: TextInputType.text,
-                              iconRoute: "assets/icons/lock.png",
-                              inputLabel: "",
-                              inputPlaceholder: "Confirmar contraseña",
-                            ),
-                            SizedBox(height: altoPantalla * 0.0182926829268293),
-                            Container(
-                              width: double.infinity,
-                              height: altoPantalla * 0.1219512195121951,
-
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Foto de perfil (opcional)",
-                                    style: TextStyle(
-                                      fontSize:
-                                          anchoPantalla * 0.048661800486618,
-                                      color: const Color.fromARGB(
-                                        255,
-                                        131,
-                                        130,
-                                        130,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: anchoPantalla * 0.1654501216545012,
-
-                                    height: altoPantalla * 0.0838471023427867,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Color.fromARGB(255, 184, 181, 181),
-                                    ),
-                                    child: Image.asset(
-                                      "assets/icons/addimage.png",
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: altoPantalla * 0.0184956843403206),
-                            MyCustomButton(textButton: "Registrarse"),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(height: altoPantalla * 0.0184956843403206),
-                    Text(
-                      "¿Ya tienes una cuenta?",
-
-                      style: TextStyle(
-                        fontSize: anchoPantalla * 0.0389294403892944,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: SizedBox(
-                        width: anchoPantalla * 0.364963503649635,
-                        height: altoPantalla * 0.0365853658536585,
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Inicia sesión",
-
-                              style: TextStyle(
-                                fontSize: anchoPantalla * 0.0389294403892944,
-                                color: Color.fromARGB(255, 31, 75, 165),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    RegisterForm(
+                      nombreController: _nombreController,
+                      apellidoController: _apellidoController,
+                      emailController: _emailController,
+                      passwordController: _passwordController,
+                      confirmPasswordController: _confirmPasswordController,
+                      selectedCarrera: _selectedCarrera,
+                      onRegisterPressed: () {
+                        if (_passwordController.text == _confirmPasswordController.text) {
+                          registerUser(
+                            _nombreController.text,
+                            _apellidoController.text,
+                            _emailController.text,
+                            _passwordController.text,
+                            _selectedCarrera ?? "",
+                          ).then((_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Usuario registrado con éxito")),
+                            );
+                          }).catchError((e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Error al registrar usuario: $e")),
+                            );
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Las contraseñas no coinciden")),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),
