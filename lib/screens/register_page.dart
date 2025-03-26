@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ite_apice/utils/validations.dart';
 import 'package:ite_apice/widgets/header_widget.dart';
 import 'package:ite_apice/components/register_form.dart';
 import 'package:ite_apice/components/carrera_dropdown.dart';
@@ -12,13 +14,125 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final TextEditingController _nombreController = TextEditingController();
-  final TextEditingController _apellidoController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
+  final TextEditingController nombreController = TextEditingController();
+  final TextEditingController apellidoController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
       TextEditingController();
   String? _selectedCarrera;
+
+  // Variables de estado para los errores
+  String? nombreError;
+  String? apellidoError;
+  String? emailError;
+  String? passwordError;
+  String? confirmPasswordError;
+  String? carreraError;
+
+  final FirebaseService _firebaseService = FirebaseService();
+
+  void _onRegisterPressed() async {
+    // Limpiar errores previos
+    setState(() {
+      nombreError = null;
+      apellidoError = null;
+      emailError = null;
+      passwordError = null;
+      confirmPasswordError = null;
+      carreraError = null;
+    });
+
+    // Validar campos vacíos
+    if (nombreController.text.isEmpty) {
+      setState(() {
+        nombreError = "Nombre es requerido";
+      });
+      return;
+    }
+
+    if (apellidoController.text.isEmpty) {
+      setState(() {
+        apellidoError = "Apellido es requerido";
+      });
+      return;
+    }
+
+    // Validar que las contraseñas coinciden
+    if (passwordController.text != confirmPasswordController.text) {
+      setState(() {
+        confirmPasswordError = "Las contraseñas no coinciden";
+      });
+      return;
+    }
+
+    // Validar el correo electrónico
+    if (!isValidEmail(emailController.text)) {
+      setState(() {
+        emailError = "Correo electrónico no válido";
+      });
+      return;
+    }
+
+    // Validar la seguridad de la contraseña
+    if (!isSecurePassword(passwordController.text)) {
+      setState(() {
+        passwordError =
+            "La contraseña debe tener una mayúscula y un carácter especial";
+      });
+      return;
+    }
+
+    // Validar que se seleccione una carrera
+    if (_selectedCarrera == null) {
+      setState(() {
+        carreraError = "Por favor selecciona una carrera";
+      });
+      return;
+    }
+
+    // Si todas las validaciones son correctas, registrar el usuario
+    User? user = await _firebaseService.registerUser(
+      emailController.text,
+      passwordController.text,
+      nombreController.text,
+      apellidoController.text,
+      _selectedCarrera ?? '',
+    );
+
+    if (user != null) {
+      // Mostrar diálogo de éxito
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            contentPadding: EdgeInsets.all(20),
+            content: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.check_circle, color: Colors.green, size: 30),
+                SizedBox(width: 10),
+                Text("Registro exitoso", style: TextStyle(fontSize: 18)),
+              ],
+            ),
+          );
+        },
+      );
+      // Esperar 2 segundos antes de redirigir
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pushReplacementNamed(context, '/loginPage');
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("El correo ya está registrado o error al registrar"),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +147,12 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               HeaderWidget(
                 title: "Registro",
-                onBackPressed: () => Navigator.pop(context),
               ),
               Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: anchoPantalla * 0.121654501216545,
                 ),
                 width: double.infinity,
-
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                 ),
@@ -74,13 +186,22 @@ class _RegisterPageState extends State<RegisterPage> {
                       onChanged: (String? nuevaCarrera) {
                         setState(() {
                           _selectedCarrera = nuevaCarrera;
+                          carreraError =
+                              null; // Limpiar error si se selecciona una carrera
                         });
                       },
                     ),
+                    if (carreraError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          carreraError!,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
                     SizedBox(height: altoPantalla * 0.0182926829268293),
                     Text(
                       "Por favor llena los siguientes campos:",
-
                       style: TextStyle(
                         fontSize: anchoPantalla * 0.0389294403892944,
                         fontWeight: FontWeight.w400,
@@ -88,88 +209,37 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     SizedBox(height: altoPantalla * 0.0182926829268293),
                     RegisterForm(
-                      nombreController: _nombreController,
-                      apellidoController: _apellidoController,
-                      emailController: _emailController,
-                      passwordController: _passwordController,
-                      confirmPasswordController: _confirmPasswordController,
+                      nombreController: nombreController,
+                      apellidoController: apellidoController,
+                      emailController: emailController,
+                      passwordController: passwordController,
+                      confirmPasswordController: confirmPasswordController,
                       selectedCarrera: _selectedCarrera,
-                      onRegisterPressed: () {
-                        if (_nombreController.text.isEmpty ||
-                            _apellidoController.text.isEmpty ||
-                            _emailController.text.isEmpty ||
-                            _passwordController.text.isEmpty ||
-                            _confirmPasswordController.text.isEmpty ||
-                            _selectedCarrera == null ||
-                            _selectedCarrera!.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                "Todos los campos son obligatorios",
-                              ),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                          return;
-                        }
-                        if (_passwordController.text !=
-                            _confirmPasswordController.text) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Las contraseñas no coinciden"),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                          return;
-                        }
-                        registerUser(
-                              _nombreController.text,
-                              _apellidoController.text,
-                              _emailController.text,
-                              _passwordController.text,
-                              _selectedCarrera ?? "",
-                            )
-                            .then((_) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Usuario registrado con éxito"),
-                                  backgroundColor: Colors.green,
-                                ),
-                              );
-                            })
-                            .catchError((e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    "Error al registrar usuario: $e",
-                                  ),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
-                            });
-                      },
+                      onRegisterPressed: _onRegisterPressed,
+                      nombreError: nombreError,
+                      apellidoError: apellidoError,
+                      emailError: emailError,
+                      passwordError: passwordError,
+                      confirmPasswordError: confirmPasswordError,
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: altoPantalla * 0.0182926829268293),
                     Text(
                       "¿Ya tienes una cuenta?",
-
                       style: TextStyle(
                         fontSize: anchoPantalla * 0.0389294403892944,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
                     GestureDetector(
-                      onTap:() => Navigator.pushNamed(context, "/loginPage"),
+                      onTap: () => Navigator.pushNamed(context, "/loginPage"),
                       child: SizedBox(
                         width: anchoPantalla * 0.364963503649635,
                         height: altoPantalla * 0.0365853658536585,
-
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               "Inicia sesión",
-
                               style: TextStyle(
                                 fontSize: anchoPantalla * 0.0389294403892944,
                                 color: Color.fromARGB(255, 31, 75, 165),

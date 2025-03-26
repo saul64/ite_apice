@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ite_apice/components/my_custom_button.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
 import 'package:ite_apice/screens/register_page.dart';
 import 'package:ite_apice/screens/post_logeo.dart';
 import 'package:ite_apice/services/firebase_service.dart';
+import 'package:ite_apice/screens/reset_password_page.dart';
+import 'package:ite_apice/widgets/header_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,26 +18,27 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final FirebaseService _firebaseService = FirebaseService();
 
-  void _handleLogin() async {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
+  void _onLoginPressed() async {
+    String email = emailController.text;
+    String password = passwordController.text;
 
-    bool loginSuccess = await loginUser(email, password);
+    // iniciar sesión con Firebase
+    User? user = await _firebaseService.loginUser(email, password);
 
-    if (loginSuccess) {
+    if (user != null) {
+      // Si el inicio de sesión es exitoso, navega a la siguiente página
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Inicio de sesión exitoso")),
+        SnackBar(content: Text("Inicio de sesión exitoso")),
       );
-
-      // Redirigir a la pantalla de post-logeo
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PostLogeo()), 
+        MaterialPageRoute(builder: (context) => PostLogeo()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Correo o contraseña incorrectos")),
+        SnackBar(content: Text("Correo o contraseña incorrectos")),
       );
     }
   }
@@ -50,10 +54,8 @@ class _LoginPageState extends State<LoginPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                width: double.infinity,
-                height: altoPantalla * 0.079,
-                color: const Color.fromARGB(255, 31, 75, 165),
+                HeaderWidget(
+                title: "Inicia sesión",
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: anchoPantalla * 0.12),
@@ -94,7 +96,10 @@ class _LoginPageState extends State<LoginPage> {
                       inputPlaceholder: "********",
                     ),
                     SizedBox(height: altoPantalla * 0.036),
-                    MyCustomButton(textButton: "Iniciar sesión", onPressed: _handleLogin),
+                    MyCustomButton(
+                      textButton: "Iniciar sesión",
+                      onPressed: _onLoginPressed, // Llamar la función de login
+                    ),
                     SizedBox(height: altoPantalla * 0.036),
                     Text(
                       "¿Aún no tienes una cuenta?",
@@ -123,6 +128,23 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: altoPantalla * 0.03),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ResetPasswordPage()), // Redirige a la página de recuperación
+                        );
+                      },
+                      child: Text(
+                        "¿Olvidaste tu contraseña?",
+                        style: TextStyle(
+                          fontSize: anchoPantalla * 0.038,
+                          color: const Color.fromARGB(255, 31, 75, 165),
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

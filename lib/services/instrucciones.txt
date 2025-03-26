@@ -1,1 +1,0 @@
-agregar futures/consultas a la base de datos
