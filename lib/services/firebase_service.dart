@@ -1,52 +1,64 @@
-//conexion a la base de datos
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-FirebaseFirestore firestoreDB = FirebaseFirestore.instance;
+class FirebaseService {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-//registrando usuario
-Future<void> registerUser(String nombre, String apellido, String email, String password, String carrera) async {
-  try {
-    print("Guardando en Firestore...");
-    print("Nombre: $nombre, Apellido: $apellido, Email: $email, Carrera: $carrera");
+  // Función para registrar al usuario con correo y contraseña
+  Future<User?> registerUser(
+    String email,
+    String password,
+    String nombre,
+    String apellido,
+    String carrera,
+  ) async {
+    try {
+      // Crear el usuario con correo y contraseña
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
 
-    await firestoreDB.collection('users').add({
-      'nombre': nombre,
-      'apellido': apellido,
-      'email': email,
-      'password': password,
-      'carrera': carrera,
-      'createdAt': FieldValue.serverTimestamp(),
-    });
-    print("Usuario registrado con éxito");
-  } catch (e) {
-    print("Error al registrar usuario: $e");
-  }
-}
-
-//logeando usuario
-Future<bool> loginUser(String email, String password) async {
-  try {
-    QuerySnapshot querySnapshot = await firestoreDB
-        .collection('users')
-        .where('email', isEqualTo: email)
-        .get();
-
-    if (querySnapshot.docs.isEmpty) {
-      print("Usuario no encontrado");
-      return false;
+      User? user = userCredential.user;
+      if (user != null) {
+        // Guardar nombre, apellido, carrera y otros datos en Firestore
+        await _firestore.collection("usuarios").doc(user.uid).set({
+          "nombre": nombre,
+          "apellido": apellido,
+          "email": email,
+          "uid": user.uid,
+          "carrera": carrera,
+        });
+      }
+      return user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        print("El correo electrónico ya está registrado.");
+        // Retornar null o un mensaje específico si el correo ya está en uso
+        return null; 
+      } else {
+        print("Error al registrar usuario: ${e.message}");
+        return null; 
+      }
+    } catch (e) {
+      print("Error desconocido: $e");
+      return null;
     }
-
-    var userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
-
-    if (userData['password'] == password) {
-      print("Inicio de sesión exitoso");
-      return true;
-    } else {
-      print("Contraseña incorrecta");
-      return false;
-    }
-  } catch (e) {
-    print("Error al iniciar sesión: $e");
-    return false;
   }
+
+  // Función para iniciar sesión con correo y contraseña
+  Future<User?> loginUser(String email, String password) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential.user;
+    } catch (e) {
+      print("Error al iniciar sesión: $e");
+      return null;
+    }
+  }
+
+  //Aqui ira la funcion para recuperar los datos del usuario para mostrarlos en la pantalla de perfil
+  //y para aplicar el filtro rapido "Para ti" de acuerdo al perfil del usuario (su carrera seleccionada)
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ite_apice/screens/login_page.dart';
 
 class PostLogeo extends StatelessWidget {
   const PostLogeo({super.key});
@@ -22,7 +23,12 @@ class PostLogeo extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); 
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ), // Cambia a la pantalla que desees
+                );
               },
               child: const Text("Cerrar sesión"),
             ),

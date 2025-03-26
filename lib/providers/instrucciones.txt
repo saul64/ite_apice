@@ -1,1 +1,0 @@
-manejar providers para los cambios de estados en pantallas

@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatelessWidget {
   final String title;
-  final Function onBackPressed;
 
   const HeaderWidget({
     Key? key,
     required this.title,
-    required this.onBackPressed,
   }) : super(key: key);
 
   @override

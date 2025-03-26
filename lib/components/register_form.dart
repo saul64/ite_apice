@@ -1,5 +1,3 @@
-//formulario de registro de usuario
-// components/register_form.dart
 import 'package:flutter/material.dart';
 import 'package:ite_apice/components/my_custom_button.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
@@ -13,6 +11,13 @@ class RegisterForm extends StatelessWidget {
   final String? selectedCarrera;
   final Function onRegisterPressed;
 
+  // Variables de error
+  final String? nombreError;
+  final String? apellidoError;
+  final String? emailError;
+  final String? passwordError;
+  final String? confirmPasswordError;
+
   const RegisterForm({
     Key? key,
     required this.nombreController,
@@ -22,6 +27,11 @@ class RegisterForm extends StatelessWidget {
     required this.confirmPasswordController,
     required this.selectedCarrera,
     required this.onRegisterPressed,
+    this.nombreError,
+    this.apellidoError,
+    this.emailError,
+    this.passwordError,
+    this.confirmPasswordError,
   }) : super(key: key);
 
   @override
@@ -43,6 +53,14 @@ class RegisterForm extends StatelessWidget {
               inputLabel: "Nombre",
               inputPlaceholder: "Nombre",
             ),
+            if (nombreError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  nombreError!,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             SizedBox(height: altoPantalla * 0.0060975609756098),
             MyCustomInput(
               controller: apellidoController,
@@ -52,6 +70,14 @@ class RegisterForm extends StatelessWidget {
               inputLabel: "Apellido",
               inputPlaceholder: "Apellido",
             ),
+            if (apellidoError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  apellidoError!,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             SizedBox(height: altoPantalla * 0.0060975609756098),
             MyCustomInput(
               controller: emailController,
@@ -61,6 +87,14 @@ class RegisterForm extends StatelessWidget {
               inputLabel: "Correo",
               inputPlaceholder: "Correo institucional",
             ),
+            if (emailError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  emailError!,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             SizedBox(height: altoPantalla * 0.0060975609756098),
             MyCustomInput(
               controller: passwordController,
@@ -70,6 +104,14 @@ class RegisterForm extends StatelessWidget {
               inputLabel: "Contraseña",
               inputPlaceholder: "Contraseña",
             ),
+            if (passwordError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  passwordError!,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             SizedBox(height: altoPantalla * 0.0060975609756098),
             MyCustomInput(
               controller: confirmPasswordController,
@@ -79,18 +121,19 @@ class RegisterForm extends StatelessWidget {
               inputLabel: "Confirmar Contraseña",
               inputPlaceholder: "Confirmar contraseña",
             ),
+            if (confirmPasswordError != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  confirmPasswordError!,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             SizedBox(height: altoPantalla * 0.0182926829268293),
-            // Botón de registro
             MyCustomButton(
               textButton: "Registrarse",
               onPressed: () {
-                if (passwordController.text == confirmPasswordController.text) {
                   onRegisterPressed();
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Las contraseñas no coinciden")),
-                  );
-                }
               },
             ),
           ],
