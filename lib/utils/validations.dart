@@ -5,8 +5,8 @@ bool doPasswordsMatch(String password, String confirmPassword) {
 
 // Validar el formato del correo electrónico
 bool isValidEmail(String email) {
-  
-  // Validar si el correo tiene el formato adecuado (para el caso específico de ITESM)
+
+  // Validar si el correo tiene el formato adecuado para correo institucional ITE
   final emailPattern = r'^al\d{8}@ite\.edu\.mx$';
   final regex = RegExp(emailPattern);
 
