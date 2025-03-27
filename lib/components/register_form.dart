@@ -84,7 +84,7 @@ class RegisterForm extends StatelessWidget {
               isTextHidden: false,
               inputType: TextInputType.emailAddress,
               iconRoute: "assets/icons/email.png",
-              inputLabel: "Correo",
+              inputLabel: "Correo Institucional",
               inputPlaceholder: "Correo institucional",
             ),
             if (emailError != null)

@@ -31,6 +31,44 @@ class _RegisterPageState extends State<RegisterPage> {
   String? carreraError;
 
   final FirebaseService _firebaseService = FirebaseService();
+  void validatePassword() {
+    setState(() {
+      passwordError = null; // Limpiar el mensaje de error anterior
+    });
+
+    String password = passwordController.text;
+
+    if (password.contains(' ')) {
+      setState(() {
+        passwordError = "La contraseña no debe contener espacios en blanco.";
+      });
+      return;
+    }
+    // Verificar la longitud
+    if (password.length < 8 || password.length > 12) {
+      setState(() {
+        passwordError = "La contraseña debe tener entre 8 y 12 caracteres.";
+      });
+      return;
+    }
+
+    // Verificar si tiene una mayúscula
+    if (!RegExp(r'(?=.*[A-Z])').hasMatch(password)) {
+      setState(() {
+        passwordError =
+            "La contraseña debe contener al menos una letra mayúscula.";
+      });
+      return;
+    }
+
+    if (!RegExp(r'(?=.*[@#$%^&+=!])').hasMatch(password)) {
+      setState(() {
+        passwordError =
+            "La contraseña debe contener al menos un carácter especial como @, #, %, ^, & o +";
+      });
+      return;
+    }
+  }
 
   void _onRegisterPressed() async {
     // Limpiar errores previos
@@ -43,23 +81,70 @@ class _RegisterPageState extends State<RegisterPage> {
       carreraError = null;
     });
 
-    // Validar campos vacíos
-    if (nombreController.text.isEmpty) {
+    // Eliminar espacios en blanco al inicio y final
+    String nombre = nombreController.text.trim().replaceAll(
+      RegExp(r'\s+'),
+      ' ',
+    );
+    String apellido = apellidoController.text.trim().replaceAll(
+      RegExp(r'\s+'),
+      ' ',
+    );
+    String email = emailController.text;
+    String password = passwordController.text;
+    String confirmPassword = confirmPasswordController.text;
+
+    // Validar que el nombre no tenga espacios extra ni caracteres no deseados
+    if (!isValidFirstName(nombre)) {
+      setState(() {
+        nombreError =
+            "El nombre no puede tener espacios extra ni caracteres especiales.";
+      });
+      return;
+    }
+
+    // Validar que el apellido no tenga espacios extra ni caracteres no deseados
+    if (!isValidLastName(apellido)) {
+      setState(() {
+        apellidoError =
+            "El apellido no puede tener espacios extra ni caracteres especiales.";
+      });
+      return;
+    }
+
+    // Validar que el nombre no sea vacío
+    if (nombre.isEmpty) {
       setState(() {
         nombreError = "Nombre es requerido";
       });
       return;
     }
 
-    if (apellidoController.text.isEmpty) {
+    // Validar que el apellido no sea vacío
+    if (apellido.isEmpty) {
       setState(() {
         apellidoError = "Apellido es requerido";
       });
       return;
     }
 
+    // Validar que el nombre y apellido sean válidos
+    if (!isValidFirstName(nombre)) {
+      setState(() {
+        nombreError = "Nombre inválido";
+      });
+      return;
+    }
+
+    if (!isValidLastName(apellido)) {
+      setState(() {
+        apellidoError = "Apellido inválido";
+      });
+      return;
+    }
+
     // Validar que las contraseñas coinciden
-    if (passwordController.text != confirmPasswordController.text) {
+    if (password != confirmPassword) {
       setState(() {
         confirmPasswordError = "Las contraseñas no coinciden";
       });
@@ -67,19 +152,23 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     // Validar el correo electrónico
-    if (!isValidEmail(emailController.text)) {
+    if (!isValidEmail(email)) {
       setState(() {
-        emailError = "Correo electrónico no válido";
+        if (email.contains(' ')) {
+          emailError =
+              "El correo electrónico no puede contener espacios en blanco.";
+        }
+        emailError =
+            "El correo electrónico debe seguir el formato 'al<8 dígitos>@ite.edu.mx'.";
       });
       return;
     }
 
-    // Validar la seguridad de la contraseña
-    if (!isSecurePassword(passwordController.text)) {
-      setState(() {
-        passwordError =
-            "La contraseña debe tener una mayúscula y un carácter especial";
-      });
+    // Llamar a la función de validación de la contraseña
+    validatePassword();
+
+    // Si hay un error de contraseña, salir de la función
+    if (passwordError != null) {
       return;
     }
 
@@ -91,17 +180,17 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    // Si todas las validaciones son correctas, registrar el usuario
+    // Registrar usuario con valores limpios
     User? user = await _firebaseService.registerUser(
-      emailController.text,
-      passwordController.text,
-      nombreController.text,
-      apellidoController.text,
+      email,
+      password,
+      nombre,
+      apellido,
       _selectedCarrera ?? '',
     );
 
     if (user != null) {
-      // Mostrar diálogo de éxito
+      // Mostrar mensaje de éxito
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -121,7 +210,7 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         },
       );
-      // Esperar 2 segundos antes de redirigir
+
       Future.delayed(Duration(seconds: 2), () {
         Navigator.pushReplacementNamed(context, '/loginPage');
       });
@@ -145,9 +234,7 @@ class _RegisterPageState extends State<RegisterPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              HeaderWidget(
-                title: "Registro",
-              ),
+              HeaderWidget(title: "Registro"),
               Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: anchoPantalla * 0.121654501216545,
