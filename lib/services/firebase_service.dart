@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:ite_apice/models/actividad.dart'; // Asegúrate de importar tu modelo de Actividad
 
 class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -34,10 +37,10 @@ class FirebaseService {
       if (e.code == 'email-already-in-use') {
         print("El correo electrónico ya está registrado.");
         // Retornar null o un mensaje específico si el correo ya está en uso
-        return null; 
+        return null;
       } else {
         print("Error al registrar usuario: ${e.message}");
-        return null; 
+        return null;
       }
     } catch (e) {
       print("Error desconocido: $e");
@@ -58,7 +61,39 @@ class FirebaseService {
       return null;
     }
   }
-
   //Aqui ira la funcion para recuperar los datos del usuario para mostrarlos en la pantalla de perfil
   //y para aplicar el filtro rapido "Para ti" de acuerdo al perfil del usuario (su carrera seleccionada)
+}
+
+class ActividadProvider extends ChangeNotifier {
+  List<Actividad> _actividades = [];
+
+  List<Actividad> get actividades => _actividades;
+
+  // Función para obtener las actividades desde Firebase y manejar el estado
+  Future<void> loadActividades() async {
+    try {
+      // Obtiene el evento de la base de datos
+      DatabaseEvent snapshot = await FirebaseDatabase.instance.ref().child('actividades').once();
+
+      // Verifica si los datos existen
+      if (snapshot.snapshot.exists) {
+        // Si existe, mapea el mapa de actividades
+        Map<dynamic, dynamic> actividadesMap = snapshot.snapshot.value as Map<dynamic, dynamic>;
+
+        // Convierte cada actividad (mapa) en un objeto Actividad
+        _actividades = actividadesMap.entries.map((entry) {
+          // 'entry.value' contiene los datos de cada actividad
+          return Actividad.fromMap(Map<String, dynamic>.from(entry.value));
+        }).toList();
+
+        // Notifica a los listeners para actualizar la UI
+        notifyListeners();
+      }
+    } catch (e) {
+      print("Error al obtener actividades: $e");
+    }
+  }
+
+  // Aquí puedes agregar funciones para agregar, eliminar o modificar actividades
 }

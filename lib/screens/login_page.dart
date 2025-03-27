@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:ite_apice/components/my_custom_button.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
 import 'package:ite_apice/screens/register_page.dart';
-import 'package:ite_apice/screens/post_logeo.dart';
+import 'package:ite_apice/screens/services_offers_page.dart';
 import 'package:ite_apice/services/firebase_service.dart';
 import 'package:ite_apice/screens/reset_password_page.dart';
 import 'package:ite_apice/widgets/header_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
+ 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
       );
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PostLogeo()),
+        MaterialPageRoute(builder: (context) => ServicesOffersPage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
