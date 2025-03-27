@@ -26,6 +26,7 @@ class BottomCustomNavigationBar extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
       child: GNav(
+        selectedIndex: 1,
         onTabChange: onTabChange,
         gap: 8, // Espaciado entre el ícono y el texto
         color: Colors.black, // Color del ícono inactivo

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ite_apice/components/bottom_navigation_bar.dart';
 import 'package:ite_apice/components/custom_end_drawer.dart';
 import 'package:ite_apice/components/offer_card.dart';
 import 'package:ite_apice/models/actividad.dart';
@@ -87,7 +86,6 @@ class _ServicesOffersPage extends State<ServicesOffersPage> {
             setState(() {}); // Refresca la pantalla para aplicar los filtros
           },
         ),
-        bottomNavigationBar: BottomCustomNavigationBar(onTabChange: (index) => {}),
         body: SingleChildScrollView(
           child: Column(
             children: [

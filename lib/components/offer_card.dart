@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ite_apice/components/activity_detail_card.dart';
 import 'package:ite_apice/models/actividad.dart';
 import 'package:ite_apice/services/firebase_service.dart';
 import 'package:provider/provider.dart';
@@ -106,9 +107,7 @@ class OfferCard extends StatelessWidget {
                     // Ícono "Ver" a la derecha
                     IconButton(
                       icon: Icon(Icons.visibility, color: Color(0xff042048)),
-                      onPressed: () {
-                        // Acción al presionar "Ver"
-                      },
+                      onPressed: () => _showDetailsPopup(context, actividad),
                     ),
                   ],
                 ),
@@ -130,6 +129,19 @@ class OfferCard extends StatelessWidget {
           ),
         ],
       ),
-    ),);
+    ),
+    
+    );
+  }
+  void _showDetailsPopup(BuildContext context, actividad) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        insetPadding: const EdgeInsets.all(20),
+        child: SingleChildScrollView(
+          child: ActivityDetailsCard(actividad: actividad,),
+        ),
+      ),
+    );
   }
 }

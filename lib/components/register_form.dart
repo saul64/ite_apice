@@ -36,7 +36,7 @@ class RegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double anchoPantalla = MediaQuery.of(context).size.width;
+    //double anchoPantalla = MediaQuery.of(context).size.width;
     double altoPantalla = MediaQuery.of(context).size.height;
 
     return Container(
