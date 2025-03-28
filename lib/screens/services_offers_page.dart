@@ -17,6 +17,8 @@ class _ServicesOffersPage extends State<ServicesOffersPage> {
   String? selectedTipoActividad;
   String? selectedModalidad;
   List<String> selectedCarreras = [];
+  bool isInterna = false; // Filtro para actividades internas
+  bool isExterna = false; // Filtro para actividades externas
 
   // Lista estática de carreras disponibles
   final List<String> availableCarreras = [
@@ -37,7 +39,7 @@ class _ServicesOffersPage extends State<ServicesOffersPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ActividadProvider>(  // Asegúrate de usar el tipo correcto de proveedor
+    return Consumer<ActividadProvider>(
       builder: (context, actividadProvider, child) => Scaffold(
         appBar: AppBar(
           title: const Text("Elian RuZo"),
@@ -60,7 +62,9 @@ class _ServicesOffersPage extends State<ServicesOffersPage> {
           selectedTipoActividad: selectedTipoActividad,
           selectedModalidad: selectedModalidad,
           selectedCarreras: selectedCarreras,
-          availableCarreras: availableCarreras, // Usar la lista estática
+          availableCarreras: availableCarreras,
+          isInterna: isInterna,
+          isExterna: isExterna,
           onTipoActividadChanged: (value) {
             setState(() {
               selectedTipoActividad = value;
@@ -80,9 +84,21 @@ class _ServicesOffersPage extends State<ServicesOffersPage> {
               }
             });
           },
+          onInternaChanged: (value) {
+            setState(() {
+              isInterna = value;
+              if (isInterna) isExterna = false; // Desactivar externa si interna está activa
+            });
+          },
+          onExternaChanged: (value) {
+            setState(() {
+              isExterna = value;
+              if (isExterna) isInterna = false; // Desactivar interna si externa está activa
+            });
+          },
           onApplyFilters: () {
             // Aquí puedes aplicar los filtros seleccionados
-            print("Filtros aplicados: $selectedTipoActividad, $selectedModalidad, $selectedCarreras");
+            print("Filtros aplicados: $selectedTipoActividad, $selectedModalidad, $selectedCarreras, Interna: $isInterna, Externa: $isExterna");
             setState(() {}); // Refresca la pantalla para aplicar los filtros
           },
         ),
@@ -100,11 +116,14 @@ class _ServicesOffersPage extends State<ServicesOffersPage> {
 
                         // Filtrar actividades según los filtros seleccionados
                         if ((selectedTipoActividad != null &&
+                                selectedTipoActividad != "Todas las actividades" &&
                                 actividad.tipoActividad != selectedTipoActividad) ||
                             (selectedModalidad != null &&
                                 actividad.modalidad != selectedModalidad) ||
                             (selectedCarreras.isNotEmpty &&
-                                !actividad.carreras.any((carrera) => selectedCarreras.contains(carrera)))) {
+                                !actividad.carreras.any((carrera) => selectedCarreras.contains(carrera))) ||
+                            (isInterna && actividad.dependencia != "Instituto Tecnologico de Ensenada") ||
+                            (isExterna && actividad.dependencia == "Instituto Tecnologico de Ensenada")) {
                           return const SizedBox.shrink(); // No mostrar actividades que no coincidan
                         }
 

@@ -9,6 +9,10 @@ class CustomEndDrawer extends StatelessWidget {
   final Function(String) onCarreraToggled; // Función para manejar cambios en las carreras
   final VoidCallback onApplyFilters;
   final List<String> availableCarreras; // Lista de carreras disponibles
+  final bool isInterna; // Filtro para actividades internas
+  final bool isExterna; // Filtro para actividades externas
+  final Function(bool) onInternaChanged; // Función para manejar el filtro interno
+  final Function(bool) onExternaChanged; // Función para manejar el filtro externo
 
   const CustomEndDrawer({
     super.key,
@@ -20,6 +24,10 @@ class CustomEndDrawer extends StatelessWidget {
     required this.onCarreraToggled,
     required this.onApplyFilters,
     required this.availableCarreras,
+    required this.isInterna,
+    required this.isExterna,
+    required this.onInternaChanged,
+    required this.onExternaChanged,
   });
 
   @override
@@ -41,6 +49,7 @@ class CustomEndDrawer extends StatelessWidget {
             ),
             value: selectedTipoActividad,
             items: [
+              "Todas las actividades", 
               "Servicio Social",
               "Residencias",
               "Practicas Profesionales",
@@ -89,12 +98,33 @@ class CustomEndDrawer extends StatelessWidget {
             );
           }),
           const SizedBox(height: 20),
+          // Filtro por dependencia
+          const Text(
+            "Dependencia",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          CheckboxListTile(
+            title: const Text("Interna (Instituto Tecnologico de Ensenada)"),
+            value: isInterna,
+            onChanged: (value) {
+              onInternaChanged(value!);
+            },
+          ),
+          CheckboxListTile(
+            title: const Text("Externa (Cualquier otra dependencia)"),
+            value: isExterna,
+            onChanged: (value) {
+              onExternaChanged(value!);
+            },
+          ),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               onApplyFilters();
               Navigator.of(context).pop(); // Cerrar el Drawer
             },
-            child: const Text("Aplicar Filtros"),
+            child: const Text("Cerrar"),
           ),
         ],
       ),
