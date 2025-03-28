@@ -72,10 +72,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Recuperar Contraseña'),
+          automaticallyImplyLeading: false,
+          title: Text('Recuperar Contraseña', 
+            style: TextStyle(
+              fontSize: anchoPantalla * 0.05,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           backgroundColor: Color(0xff042048),
           foregroundColor: Colors.white,
         ),
+
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: anchoPantalla * 0.12),
           child: SingleChildScrollView(
