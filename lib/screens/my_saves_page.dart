@@ -9,19 +9,31 @@ class MySavesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ActividadProvider>(builder: (context, act, child) => Scaffold(
-      appBar: AppBar(
-        title: Text('Mis guardados'),
+    return Consumer<ActividadProvider>(
+      builder: (context, act, child) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Mis guardados'),
+        ),
+        body: SafeArea(
+          child: act.savedActividades.isEmpty
+              ? const Center(
+                  child: Text(
+                    'Aún no tienes actividades guardadas.',
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: act.savedActividades.length,
+                  itemBuilder: (context, index) {
+                    Actividad actividad = act.savedActividades[index];
+                    return OfferCard(
+                      actividad: actividad,
+                      isInSaved: true,
+                    );
+                  },
+                ),
+        ),
       ),
-      body: SafeArea(child: ListView.builder(
-        itemCount: act.savedActividades.length,
-        itemBuilder: (context, index) {
-          Actividad actividad = act.savedActividades[index];
-          return OfferCard(actividad: actividad, isInSaved: true,)
-;        },
-
-      )),
-    ),
     );
   }
 }
