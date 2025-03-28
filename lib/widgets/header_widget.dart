@@ -16,7 +16,7 @@ class HeaderWidget extends StatelessWidget {
     double altoPantalla = MediaQuery.of(context).size.height;
 
     return Container(
-      color: Color.fromARGB(255, 31, 75, 165),
+      color: Color(0xff042048),
       width: double.infinity,
       height: altoPantalla * 0.0792682926829268,
       child: Row(

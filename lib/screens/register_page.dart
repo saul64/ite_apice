@@ -234,7 +234,7 @@ class _RegisterPageState extends State<RegisterPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              HeaderWidget(title: "Registro"),
+              HeaderWidget(title: "Registrate"),
               Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: anchoPantalla * 0.121654501216545,
@@ -329,7 +329,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               "Inicia sesión",
                               style: TextStyle(
                                 fontSize: anchoPantalla * 0.0389294403892944,
-                                color: Color.fromARGB(255, 31, 75, 165),
+                                color: Color(0xff042048),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

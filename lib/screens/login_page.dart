@@ -126,7 +126,7 @@ void _onLoginPressed() async {
                               "Regístrate",
                               style: TextStyle(
                                 fontSize: anchoPantalla * 0.038,
-                                color: const Color.fromARGB(255, 31, 75, 165),
+                                color: const Color(0xff042048),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -146,7 +146,7 @@ void _onLoginPressed() async {
                         "¿Olvidaste tu contraseña?",
                         style: TextStyle(
                           fontSize: anchoPantalla * 0.038,
-                          color: const Color.fromARGB(255, 31, 75, 165),
+                          color: const Color(0xff042048),
                           fontWeight: FontWeight.bold,
                         ),
                       ),

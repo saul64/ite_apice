@@ -13,7 +13,7 @@ class SmallButton extends StatelessWidget {
       height: altoPantalla * 0.0548780487804878,
 
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 31, 75, 165),
+        color: const Color(0xff042048),
         borderRadius: BorderRadius.circular(15),
       ),
 

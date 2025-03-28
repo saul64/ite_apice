@@ -17,13 +17,13 @@ class CarreraDropdown extends StatelessWidget {
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(
         filled: true,
-        fillColor: Color.fromARGB(255, 31, 75, 165),
+        fillColor: Color(0xff042048),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
         ),
       ),
-      dropdownColor: Color.fromARGB(255, 31, 75, 165),
+      dropdownColor: Color(0xff042048),
       style: TextStyle(color: Colors.white),
       hint: Text(
         "Selecciona tu carrera",

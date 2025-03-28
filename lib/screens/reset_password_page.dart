@@ -73,7 +73,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Recuperar Contraseña'),
-          backgroundColor: const Color.fromARGB(255, 31, 75, 165),
+          backgroundColor: Color(0xff042048),
+          foregroundColor: Colors.white,
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: anchoPantalla * 0.12),
@@ -117,7 +118,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         onPressed: _resetPassword,
                         style: ButtonStyle(
                           backgroundColor: WidgetStateProperty.all(
-                            const Color.fromARGB(255, 31, 75, 165),
+                            const Color(0xff042048),
                           ),
                         ),
                         child: Text('Enviar correo de recuperación', style: TextStyle(color: Colors.white),),
@@ -131,7 +132,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     "Volver al inicio de sesión",
                     style: TextStyle(
                       fontSize: anchoPantalla * 0.038,
-                      color: const Color.fromARGB(255, 31, 75, 165),
+                      color: const Color(0xff042048),
                       fontWeight: FontWeight.bold,
                     ),
                   ),

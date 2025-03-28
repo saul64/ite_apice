@@ -82,38 +82,44 @@ class FirebaseService {
 
 class ActividadProvider extends ChangeNotifier {
   List<Actividad> _actividades = [];
-  final List<Actividad> _savedActividades =
-      []; // Lista de actividades guardadas
+  final List<Actividad> _savedActividades = [];
+  bool _isLoading = false; // Variable de estado para carga
 
   List<Actividad> get actividades => _actividades;
   List<Actividad> get savedActividades => _savedActividades;
+  bool get isLoading => _isLoading; // Exponemos el estado de carga
 
   // Función para obtener las actividades desde Firebase y manejar el estado
   Future<void> loadActividades() async {
+    if (_actividades.isNotEmpty) {
+      // Si ya hay actividades en caché, no se hace la carga
+      return;
+    }
+
+    _isLoading = true; // Comienza la carga
+    notifyListeners(); // Notificamos que el estado ha cambiado (empezó la carga)
+
     try {
       // Obtiene el evento de la base de datos
-      DatabaseEvent snapshot =
-          await FirebaseDatabase.instance.ref().child('actividades').once();
+      DatabaseEvent snapshot = await FirebaseDatabase.instance.ref().child('actividades').once();
 
       // Verifica si los datos existen
       if (snapshot.snapshot.exists) {
         // Si existe, mapea el mapa de actividades
-        Map<dynamic, dynamic> actividadesMap =
-            snapshot.snapshot.value as Map<dynamic, dynamic>;
+        Map<dynamic, dynamic> actividadesMap = snapshot.snapshot.value as Map<dynamic, dynamic>;
 
         // Convierte cada actividad (mapa) en un objeto Actividad
-        _actividades =
-            actividadesMap.entries.map((entry) {
-              // 'entry.value' contiene los datos de cada actividad
-              return Actividad.fromMap(Map<String, dynamic>.from(entry.value));
-            }).toList();
-
-        // Notifica a los listeners para actualizar la UI
-        notifyListeners();
+        _actividades = actividadesMap.entries.map((entry) {
+          // 'entry.value' contiene los datos de cada actividad
+          return Actividad.fromMap(Map<String, dynamic>.from(entry.value));
+        }).toList();
       }
     } catch (e) {
       print("Error al obtener actividades: $e");
     }
+
+    _isLoading = false; // Finaliza la carga
+    notifyListeners(); // Notificamos que el estado ha cambiado (finalizó la carga)
   }
 
   // Función para agregar una actividad a la lista de guardados

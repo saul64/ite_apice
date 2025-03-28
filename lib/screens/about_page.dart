@@ -59,10 +59,20 @@ class _AboutPageState extends State<AboutPage> {
           child: Column(
             children: [
               Container(
-                //app bar xd
                 width: double.infinity,
                 height: altoPantalla * 0.0792682926829268,
-                color: Color.fromARGB(255, 31, 75, 165),
+                color: Color(0xff042048),
+                child: Center(
+                  // Centra el texto dentro del container
+                  child: Text(
+                    'Bienvenido', // El texto que deseas mostrar
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: anchoPantalla * 0.0535279805352798,
+                      color: Colors.white, // Color del texto  
+                    ),
+                  ),
+                ),
               ),
               Container(
                 //Father container
@@ -75,7 +85,7 @@ class _AboutPageState extends State<AboutPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    Container(
                       width: double.infinity,
                       height: altoPantalla * 0.1341463414634146,
                       child: Image.asset("assets/images/logo.jpg"),
@@ -85,7 +95,7 @@ class _AboutPageState extends State<AboutPage> {
                       borderRadius: BorderRadius.circular(
                         anchoPantalla * 0.048661800486618,
                       ),
-                      child: SizedBox(
+                      child: Container(
                         width: double.infinity,
                         height: altoPantalla * 0.4878048780487805,
                         child: PageView(
