@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ite_apice/components/my_custom_button.dart';
 import 'package:ite_apice/components/my_custom_input.dart';
+import 'package:ite_apice/screens/home_page.dart';
 import 'package:ite_apice/screens/register_page.dart';
-import 'package:ite_apice/screens/services_offers_page.dart';
 import 'package:ite_apice/services/firebase_service.dart';
 import 'package:ite_apice/screens/reset_password_page.dart';
 import 'package:ite_apice/widgets/header_widget.dart';
@@ -32,15 +32,15 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Inicio de sesión exitoso")),
       );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => ServicesOffersPage()),
-      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Correo o contraseña incorrectos")),
       );
     }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
   }
 
   @override

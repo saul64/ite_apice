@@ -67,8 +67,10 @@ class FirebaseService {
 
 class ActividadProvider extends ChangeNotifier {
   List<Actividad> _actividades = [];
+  List<Actividad> _savedActividades = []; // Lista de actividades guardadas
 
   List<Actividad> get actividades => _actividades;
+  List<Actividad> get savedActividades => _savedActividades;
 
   // Función para obtener las actividades desde Firebase y manejar el estado
   Future<void> loadActividades() async {
@@ -95,5 +97,19 @@ class ActividadProvider extends ChangeNotifier {
     }
   }
 
-  // Aquí puedes agregar funciones para agregar, eliminar o modificar actividades
+  // Función para agregar una actividad a la lista de guardados
+  void addToSaved(Actividad actividad) {
+    if (!_savedActividades.contains(actividad)) {
+      _savedActividades.add(actividad);
+      notifyListeners(); // Notifica a los listeners para actualizar la UI
+    }
+  }
+
+  // Función para eliminar una actividad de la lista de guardados
+  void removeFromSaved(Actividad actividad) {
+    if (_savedActividades.contains(actividad)) {
+      _savedActividades.remove(actividad);
+      notifyListeners(); // Notifica a los listeners para actualizar la UI
+    }
+  }
 }
