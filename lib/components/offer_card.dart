@@ -6,10 +6,11 @@ import 'package:provider/provider.dart';
 
 class OfferCard extends StatelessWidget {
   final Actividad actividad;
-  
+  final bool isInSaved;
   const OfferCard({
     super.key,
     required this.actividad,
+    this.isInSaved = false
   });
 
 
@@ -139,7 +140,7 @@ class OfferCard extends StatelessWidget {
       builder: (context) => Dialog(
         insetPadding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
-          child: ActivityDetailsCard(actividad: actividad,),
+          child: ActivityDetailsCard(actividad: actividad, isInSaved: isInSaved,),
         ),
       ),
     );
