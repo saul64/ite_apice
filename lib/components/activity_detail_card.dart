@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:ite_apice/models/actividad.dart';
 import 'package:ite_apice/services/firebase_service.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart'; // Importa Clipboard
 
 class ActivityDetailsCard extends StatelessWidget {
   final Actividad actividad;
+  final bool isInSaved;
 
   const ActivityDetailsCard({
     super.key,
     required this.actividad,
+    this.isInSaved = false
   });
 
   @override
@@ -96,8 +99,24 @@ class ActivityDetailsCard extends StatelessWidget {
                       text: 'Contacto: ',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    TextSpan(text: actividad.contacto),
                   ],
+                ),
+              ),
+              const SizedBox(height: 4),
+              // Contacto copiable
+              GestureDetector(
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: actividad.contacto));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('¡Contacto copiado al portapapeles!')),
+                  );
+                },
+                child: Text(
+                  actividad.contacto,
+                  style: const TextStyle(
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -109,27 +128,76 @@ class ActivityDetailsCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // Botón "Me interesa"
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF042048),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                    if (!isInSaved)
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF042048),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: () {
+                            // Verificar si la actividad ya está en savedActividades
+                            if (actividadProvider.savedActividades.contains(actividad)) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('La actividad ya está en actividades guardadas.'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                              Navigator.pop(context);
+                            } else {
+                              // Agregar a savedActividades
+                              actividadProvider.addToSaved(actividad);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('¡Agregado a actividades guardadas!'),
+                                ),
+                              );
+                              Navigator.pop(context); // Cerrar la tarjeta
+                            }
+                          },
+                          child: const Text(
+                            'Me interesa',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                        onPressed: () {
-                          // Acción al presionar "Me interesa"
-                        },
-                        child: const Text(
-                          'Me interesa',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
+                      )
+                    else
+                      // Botón "Eliminar"
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: () {
+                            // Eliminar de savedActividades
+                            actividadProvider.removeFromSaved(actividad);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('¡Eliminado de actividades guardadas!'),
+                              ),
+                            );
+                            Navigator.pop(context); // Cerrar la tarjeta
+                          },
+                          child: const Text(
+                            'Eliminar',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),
-                    ),
                     const SizedBox(width: 16), // Espaciado entre los botones
                     // Botón "Registrarse"
                     Expanded(
@@ -143,6 +211,7 @@ class ActivityDetailsCard extends StatelessWidget {
                         ),
                         onPressed: () {
                           // Acción al presionar "Registrarse"
+                          Navigator.pop(context); // Cerrar la tarjeta
                         },
                         child: const Text(
                           'Registrarse',
