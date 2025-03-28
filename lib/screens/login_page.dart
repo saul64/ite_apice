@@ -32,7 +32,6 @@ void _onLoginPressed() async {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Inicio de sesión exitoso")),
     );
-
     // Navegar a la siguiente página
     Navigator.pushReplacement(
       context,
