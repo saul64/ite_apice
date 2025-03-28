@@ -19,7 +19,7 @@ class RegisterForm extends StatelessWidget {
   final String? confirmPasswordError;
 
   const RegisterForm({
-    Key? key,
+    super.key,
     required this.nombreController,
     required this.apellidoController,
     required this.emailController,
@@ -32,14 +32,14 @@ class RegisterForm extends StatelessWidget {
     this.emailError,
     this.passwordError,
     this.confirmPasswordError,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     //double anchoPantalla = MediaQuery.of(context).size.width;
     double altoPantalla = MediaQuery.of(context).size.height;
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: altoPantalla * 0.3170731707317073,
       child: SingleChildScrollView(

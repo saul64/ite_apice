@@ -7,10 +7,10 @@ class CarreraDropdown extends StatelessWidget {
   final Function(String?) onChanged;
 
   const CarreraDropdown({
-    Key? key,
+    super.key,
     required this.selectedCarrera,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

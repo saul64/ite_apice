@@ -87,7 +87,7 @@ class CustomEndDrawer extends StatelessWidget {
                 onCarreraToggled(carrera);
               },
             );
-          }).toList(),
+          }),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {

@@ -14,7 +14,7 @@ class AboutTwo extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             anchoPantalla * 0.048661800486618,
           ),
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: altoPantalla * 0.2804878048780488,
             child: Image.asset("assets/images/about2.jpg", fit: BoxFit.cover),

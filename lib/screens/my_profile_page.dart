@@ -1,57 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-class UserModel {
-  final String nombre;
-  final String apellido;
-  final String email;
-  final String carrera;
-
-  UserModel({
-    required this.nombre,
-    required this.apellido,
-    required this.email,
-    required this.carrera,
-  });
-
-  // Método para convertir el Map de Firestore en un UserModel
-  factory UserModel.fromMap(Map<String, dynamic> data) {
-    return UserModel(
-      nombre: data['nombre'] ?? '',
-      apellido: data['apellido'] ?? '',
-      email: data['email'] ?? '',
-      carrera: data['carrera'] ?? '',
-    );
-  }
-}
-
-void saveUserData(UserModel user) async {
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setString('nombre', user.nombre);
-  prefs.setString('apellido', user.apellido);
-  prefs.setString('email', user.email);
-  prefs.setString('carrera', user.carrera);
-}
-
-Future<UserModel?> getUserData() async {
-  final prefs = await SharedPreferences.getInstance();
-  String? nombre = prefs.getString('nombre');
-  String? apellido = prefs.getString('apellido');
-  String? email = prefs.getString('email');
-  String? carrera = prefs.getString('carrera');
-  
-  if (nombre != null && apellido != null && email != null && carrera != null) {
-    return UserModel(
-      nombre: nombre,
-      apellido: apellido,
-      email: email,
-      carrera: carrera,
-    );
-  }
-  return null;
-}
+import 'package:ite_apice/services/firebase_service.dart'; // Asegúrate de importar tu servicio de Firebase
+import 'package:ite_apice/models/user_model.dart'; // Asegúrate de tener un modelo de usuario adecuado
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({super.key});
@@ -61,8 +11,9 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
-  UserModel? user; // Variable para almacenar el usuario
+  UserModel? user; // Variable para almacenar los datos del usuario
   bool isLoading = true; // Estado de carga
+  final FirebaseService _firebaseService = FirebaseService();
 
   @override
   void initState() {
@@ -70,26 +21,34 @@ class _MyProfilePageState extends State<MyProfilePage> {
     loadUserData();
   }
 
+  // Función para cargar los datos del usuario
   Future<void> loadUserData() async {
-    UserModel? storedUser = await getUserData(); // Obtener datos de SharedPreferences
-    if (storedUser != null) {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      // Obtener los datos del usuario desde Firestore
+      Map<String, dynamic>? userData = await _firebaseService.getUserData(currentUser.uid);
+      if (userData != null) {
+        setState(() {
+          user = UserModel.fromMap(userData); // Asegúrate de tener un constructor adecuado para UserModel
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        showError("No se encontraron datos del usuario.");
+      }
+    } else {
       setState(() {
-        user = storedUser;
         isLoading = false;
       });
-    } else {
-      // Si no hay datos guardados, obtenerlos desde Firebase
-      User? currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
-        DocumentSnapshot userData = await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).get();
-        if (userData.exists) {
-          setState(() {
-            user = UserModel.fromMap(userData.data() as Map<String, dynamic>);
-            isLoading = false;
-          });
-        }
-      }
+      showError("Usuario no autenticado.");
     }
+  }
+
+  // Mostrar errores
+  void showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -103,13 +62,13 @@ class _MyProfilePageState extends State<MyProfilePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Nombre: ${user?.nombre ?? ''}', style: TextStyle(fontSize: 20)),
+                  Text('Nombre: ${user?.nombre ?? 'Cargando...'}', style: TextStyle(fontSize: 20)),
                   SizedBox(height: 10),
-                  Text('Apellido: ${user?.apellido ?? ''}', style: TextStyle(fontSize: 20)),
+                  Text('Apellido: ${user?.apellido ?? 'Cargando...'}', style: TextStyle(fontSize: 20)),
                   SizedBox(height: 10),
-                  Text('Email: ${user?.email ?? ''}', style: TextStyle(fontSize: 20)),
+                  Text('Email: ${user?.email ?? 'Cargando...'}', style: TextStyle(fontSize: 20)),
                   SizedBox(height: 10),
-                  Text('Carrera: ${user?.carrera ?? ''}', style: TextStyle(fontSize: 20)),
+                  Text('Carrera: ${user?.carrera ?? 'Cargando...'}', style: TextStyle(fontSize: 20)),
                 ],
               ),
             ),

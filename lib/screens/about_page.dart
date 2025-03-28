@@ -75,7 +75,7 @@ class _AboutPageState extends State<AboutPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       height: altoPantalla * 0.1341463414634146,
                       child: Image.asset("assets/images/logo.jpg"),
@@ -85,7 +85,7 @@ class _AboutPageState extends State<AboutPage> {
                       borderRadius: BorderRadius.circular(
                         anchoPantalla * 0.048661800486618,
                       ),
-                      child: Container(
+                      child: SizedBox(
                         width: double.infinity,
                         height: altoPantalla * 0.4878048780487805,
                         child: PageView(

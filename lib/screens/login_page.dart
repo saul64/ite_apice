@@ -20,28 +20,32 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   final FirebaseService _firebaseService = FirebaseService();
 
-  void _onLoginPressed() async {
-    String email = emailController.text;
-    String password = passwordController.text;
+void _onLoginPressed() async {
+  String email = emailController.text;
+  String password = passwordController.text;
 
-    // iniciar sesión con Firebase
-    User? user = await _firebaseService.loginUser(email, password);
+  // Iniciar sesión con Firebase
+  User? user = await _firebaseService.loginUser(email, password);
 
-    if (user != null) {
-      // Si el inicio de sesión es exitoso, navega a la siguiente página
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Inicio de sesión exitoso")),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Correo o contraseña incorrectos")),
-      );
-    }
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+  if (user != null) {
+    // Si el inicio de sesión es exitoso, navega a la siguiente página
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Inicio de sesión exitoso")),
+    );
+
+    // Navegar a la siguiente página
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
+  } else {
+    // Si el inicio de sesión falla, mostrar mensaje de error
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Correo o contraseña incorrectos")),
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
