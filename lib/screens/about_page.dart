@@ -67,7 +67,7 @@ class _AboutPageState extends State<AboutPage> {
                   child: Text(
                     'Bienvenido', // El texto que deseas mostrar
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.bold,
                       fontSize: anchoPantalla * 0.0535279805352798,
                       color: Colors.white, // Color del texto  
                     ),
@@ -133,12 +133,7 @@ class _AboutPageState extends State<AboutPage> {
                             shape: BoxShape.circle,
                             color:
                                 _currentPage == index
-                                    ? Color.fromARGB(
-                                      255,
-                                      31,
-                                      75,
-                                      165,
-                                    ) // Color activo
+                                    ? const Color(0xff042048)// Color activo
                                     : Colors.grey, // Color inactivo
                           ),
                         );

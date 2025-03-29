@@ -26,7 +26,7 @@ class HeaderWidget extends StatelessWidget {
             title,
             style: TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.bold,
               fontSize: anchoPantalla * 0.0535279805352798,
             ),
           ),
