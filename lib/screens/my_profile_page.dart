@@ -96,40 +96,81 @@ class _MyProfilePageState extends State<MyProfilePage> {
         foregroundColor: Colors.white,
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator()) // Indicador de carga
-          : Padding(
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'Nombre: ${user?.nombre ?? 'Cargando...'}',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Apellido: ${user?.apellido ?? 'Cargando...'}',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Email: ${user?.email ?? 'Cargando...'}',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Carrera: ${user?.carrera ?? 'Cargando...'}',
-                    style: TextStyle(fontSize: 20),
+                  CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.grey.shade300,
+                    child: Icon(
+                      Icons.verified_user,
+                      size: 60,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                   SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _signOut, // Cerrar sesión al presionar el botón
-                    child: Text('Cerrar sesión'),
+                  _buildProfileInfo("Nombre", user?.nombre ?? 'Cargando...'),
+                  _buildProfileInfo("Apellido", user?.apellido ?? 'Cargando...'),
+                  _buildProfileInfo("Email", user?.email ?? 'Cargando...'),
+                  _buildProfileInfo("Carrera", user?.carrera ?? 'Cargando...'),
+                  SizedBox(height: 30),
+                  ElevatedButton.icon(
+                    onPressed: _signOut,
+                    icon: Icon(Icons.logout),
+                    label: Text('Cerrar sesión'),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      backgroundColor: Colors.red.shade400,
+                      foregroundColor: Colors.white,
+                      textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
             ),
     );
   }
-}
 
+  Widget _buildProfileInfo(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade700,
+              ),
+            ),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
